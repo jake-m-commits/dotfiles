@@ -1,0 +1,19 @@
+Install plugins
+" after adding plugs to ~/.config/nvim/init.vim
+nvim
+:PlugInstall
+:UpdateRemotePlugins
+:q!
+:q!
+
+Remove plugins
+" after removing plugs from ~/.config/nvim/init.vim
+nvim
+:PlugClean
+
+Update plugins
+:PlugUpdate
+
+Update vim-plug
+:PlugUpgrade
+

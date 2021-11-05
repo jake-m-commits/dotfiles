@@ -1,0 +1,16 @@
+{
+  "diagnostic.checkCurrentLine": true,
+  "suggest.maxCompleteItemCount": 20,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "json",
+    "css",
+    "python"
+  ],
+  "diagnostic.errorSign": " ",
+  "diagnostic.warningSign": " ",
+  "diagnostic.infoSign": " ",
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true
+}
