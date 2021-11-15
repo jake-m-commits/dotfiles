@@ -5,9 +5,9 @@ font_family           FiraCode Nerd Font
 #bold_font             FiraCode Nerd Font
 #italic_font           FiraCode Nerd Font
 #bold_italic_font      FiraCode Nerd Font
-font_size             14.0
+font_size             13.0
 
-remember_window_size  no
+remember_window_size  yes
 initial_window_width  160c
 initial_window_height 40c
 open_url_with default
@@ -17,7 +17,7 @@ detect_urls yes
 hide_window_decorations yes
 
 #: make window transparent
-#background_opacity 0.8
+background_opacity 0.9
 #dynamic_background_opacity yes
 
 #: enable layouts
@@ -46,10 +46,10 @@ map ctrl+up neighboring_window up
 map ctrl+down neighboring_window down
 
 #: resize layout windows
-#map ctrl+h resize_window narrower
-#map ctrl+l resize_window wider
-#map ctrl+k resize_window taller
-#map ctrl+j resize_window shorter
+map ctrl+h resize_window narrower
+map ctrl+l resize_window wider
+map ctrl+k resize_window taller
+map ctrl+j resize_window shorter
 
 #: cursor settings
 # cursor #bd93f9
@@ -58,6 +58,6 @@ cursor_shape block
 
 
 # BEGIN_KITTY_THEME
-# Gruvbox Dark
+# 3024 Night
 include current-theme.conf
 # END_KITTY_THEME
