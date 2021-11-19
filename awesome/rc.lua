@@ -107,7 +107,8 @@ local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "librewolf"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+--awful.util.tagnames = { "  ", "  ", "  ", "  ", "  " }
+awful.util.tagnames = { "一", "ニ", "三", "四", "五", "六", "七", "八", "九", "十" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -825,13 +826,14 @@ client.connect_signal("manage", function (c)
 end)
 
 -- Autorun programs
--- autorun = true
--- autorunApps =
--- {
---    "caffeine",
--- }
--- if autorun then
---    for app = 1, #autorunApps do
---        awful.util.spawn(autorunApps[app])
---    end
--- end
+autorun = true
+autorunApps =
+{
+   "caffeine",
+   "picom -b"
+}
+if autorun then
+   for app = 1, #autorunApps do
+       awful.util.spawn(autorunApps[app])
+   end
+end
