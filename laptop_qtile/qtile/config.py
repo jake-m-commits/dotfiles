@@ -24,16 +24,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import List
-
-# from widgets.MangaDex import MangaDex  # noqa: F401
-
 import os.path
+
+from typing import List
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-# from widgets.volume_text import VolumeText
-# from widgets.battery_text import BatteryText
+from subprocess import call as subcall
 
 mod = "mod4"
 terminal = "kitty"
@@ -45,7 +42,8 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "space", lazy.layout.next(),
+        desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key(
@@ -61,7 +59,8 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(),
+        desc="Grow window to the left"),
     Key(
         [mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"
     ),
@@ -86,7 +85,8 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "p", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     # this is to launch rofi
-    Key([mod], "r", lazy.spawn("rofi -modi drun,run -show drun -show-icons"), desc="Launch rofi"),
+    Key([mod], "r", lazy.spawn(
+        "rofi -modi drun,run -show drun -show-icons"), desc="Launch rofi"),
     # to lock the screen
     Key([mod], "q", lazy.spawn("slock"), desc="lock the screen"),
     # to take screenshot
@@ -108,7 +108,8 @@ keys = [
     Key(
         [mod],
         "s",
-        lazy.spawn(f"import -silent -window root {home_dir}/ScreenShots/image.png"),
+        lazy.spawn(
+            f"import -silent -window root {home_dir}/ScreenShots/image.png"),
         desc="take full screenshot of x-server",
     ),
     # to change wallpaper
@@ -120,54 +121,42 @@ keys = [
     #     ),
     #     desc="change wallpaper",
     # ),
-    # volume controls for keychron keyboard
-    # Key(
-    #     [], "XF86AudioRaiseVolume",
-    #     lazy.spawn("amixer -c 0 -q set Master 1dB+")
-    # ),
-    # Key(
-    #     [], "XF86AudioLowerVolume",
-    #     lazy.spawn("amixer -c 0 -q set Master 1dB-")
-    # ),
-    # Key(
-    #     [], "XF86AudioMute",
-    #     lazy.spawn("amixer -c 0 -q set Master toggle")
-    # ),
+    # Brightness controls
+    # Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10")),
+    # Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10")),
+    # Volume controls
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 2- unmute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 2+ unmute")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(
+        "amixer -q sset Master 5%- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn(
+        "amixer -q sset Master 5%+ unmute")),
 ]
 
-# groups = [Group(i, label="⬤") for i in "12345"]
 groups = [
     Group("1", label="一"),
     Group("2", label="二"),
     Group("3", label="三"),
     Group("4", label="四"),
     Group("5", label="五"),
-    # Group("1", label="1"),
-    # Group("2", label="2"),
-    # Group("3", label="3"),
-    # Group("4", label="4"),
-    # Group("5", label="5"),
 ]
 
 for i in groups:
     keys.extend(
         [
-            # mod1 + letter of group = switch to group
+            # mod1 + groupID = switch to group
             Key(
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
             ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
+            # mod1 + shift + groupID = switch to & move focused window to group
             Key(
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
+                desc="Switch to & move focused window to group {}".format(
+                    i.name),
             ),
             # Or, use below if you prefer not to switch to that group.
             # # mod1 + shift + letter of group = move focused window to group
@@ -222,25 +211,25 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper="~/Pictures/wallpapers/gruvbox_buildings.png",
+        wallpaper="~/Pictures/reddit/gruvbox_buildings.png",
         wallpaper_mode="stretch",
         top=bar.Bar(
             [
                 widget.TextBox("   "),
                 widget.TextBox(
-                    text="|",
+                    " ",
+                    foreground=colors["green"],
+                    fontsize=18,
+                    # background=colors["black"],
+                ),
+                widget.TextBox(
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                # widget.TextBox(
-                #     " ",
-                #     # foreground=colors["white"],
-                #     fontsize=30,
-                #     background=colors["black"],
-                # ),
                 widget.GroupBox(
                     block_highlight_text_color=colors["black"],
                     highlight_method="text",
@@ -249,35 +238,34 @@ screens = [
                     inactive="#d4be98",
                     highlight_color="#d4be98",
                     margin_y=3,
-                    background=colors["black"],
+                    # background=colors["black"],
                     font="FiraCode Nerd Font",
                     fontsize=16,
                     spacing=10,
                 ),
                 widget.TextBox(
-                    text="|",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                widget.TextBox("  "),
+                widget.TextBox(" "),
                 widget.WindowName(format="{name}", max_chars=100),
                 widget.TextBox(
-                    text="|",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                widget.TextBox("  ", fontsize=24, background=colors["black"]),
+                widget.TextBox("   ", fontsize=18),
                 widget.Clock(
-                    format="%H:%M:%S ", fontsize=16, background=colors["black"]
-                ),
+                    format="%H:%M:%S ", fontsize=16),
                 widget.TextBox(
-                    text="|",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
@@ -285,82 +273,55 @@ screens = [
                     padding=0,
                 ),
                 widget.Spacer(),
-                # widget.TextBox("    "),
-                # widget.TextBox(
-                #     text="",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                # ),
-                # widget.Pomodoro(
-                #     length_long_break=60,
-                #     color_active=colors["white"],
-                #     color_inactive=colors["white"],
-                #     color_break=colors["yellow"],
-                #     background=colors["black"],
-                #     foreground=colors["white"],
-                # ),
-                # # widget.TextBox("   ", background=colors["black"]),
-                # widget.TextBox(
-                #     text="",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                # ),
-                # widget.TextBox("    "),
                 widget.TextBox(
-                    text="|",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                widget.Systray(icon_size=20, background=colors["black"]),
+                widget.Systray(icon_size=20),
                 widget.TextBox(
-                    text="|",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                # widget.TextBox("    "),
-                # widget.TextBox(
-                #     text="",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                # ),
-                # widget.TextBox(
-                #     " ",
-                #     background=colors["black"],
-                #     foreground=colors["blue"],
-                #     fontsize=24,
-                # ),
-                # widget.Backlight(
-                #     brightness_file="/sys/class/backlight/intel_backlight/brightness",
-                #     max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
-                #     background=colors["black"],
-                #     foreground=colors["blue"],
-                # ),
-                # widget.TextBox(
-                #     text="",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                # ),
-                widget.TextBox("    "),
+                widget.TextBox(" "),
                 widget.TextBox(
-                    text="",
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    " ",
+                    # background=colors["black"],
+                    foreground=colors["blue"],
+                    fontsize=20,
+                ),
+                widget.Backlight(
+                    brightness_file="/sys/class/backlight/intel_backlight/brightness",
+                    max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
+                    # background=colors["black"],
+                    foreground=colors["blue"],
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(" "),
+                widget.TextBox(
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
@@ -369,92 +330,144 @@ screens = [
                 ),
                 widget.TextBox(
                     " ",
+                    fontsize=20,
+                    # background=colors["black"],
+                    foreground=colors["red"],
+                ),
+                widget.CPU(
+                    font="FiraCode Nerd Font",
+                    format="{load_percent}%",
+                    # background=colors["black"],
+                    foreground=colors["red"],
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(" "),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    " ",
+                    fontsize=20,
+                    # background=colors["black"],
+                    foreground=colors["white"],
+                ),
+                widget.ThermalSensor(
+                    font="FiraCode Nerd Font",
+                    # background=colors["black"],
+                    foreground=colors["white"],
+                    foreground_alert=colors["red"],
+                    tag_sensor="Package id 0",
+                    show_tag=False,
+                    metric=True,
+                    update_interval=1,
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(" "),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    " ",
                     fontsize=17,
-                    background=colors["black"],
+                    # background=colors["black"],
                     foreground=colors["green"],
                 ),
                 widget.Memory(
                     format="{MemUsed: .0f} MB",
-                    background=colors["black"],
+                    # background=colors["black"],
                     foreground=colors["green"],
                 ),
                 widget.TextBox(
-                    text="",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                widget.TextBox("    "),
+                widget.TextBox(" "),
                 widget.TextBox(
-                    text="",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                # VolumeText(
-                #     1,
-                #     background=colors["black"],
-                #     fontsize=20,
-                #     foreground=colors["yellow"],
-                # ),
                 widget.TextBox(
-                    " ",
+                    " ",
                     fontsize=17,
-                    background=colors["black"],
+                    # background=colors["black"],
                     foreground=colors["yellow"],
                 ),
-                widget.Volume(background=colors["black"], foreground=colors["yellow"]),
+                widget.Volume(foreground=colors["yellow"]),
                 widget.TextBox(
-                    text="",
+                    text="|",
                     foreground=colors["black"],
                     # background=colors[0],
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
                 ),
-                widget.TextBox("    "),
-                # widget.TextBox(
-                #     text="",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                # ),
-                # widget.BatteryIcon(
-                #     theme_path="/usr/share/icons/gruvbox-dark-icons-gtk/24x24",
-                #     background=colors["black"],
-                # ),
-                # BatteryText(
-                #     1,
-                #     background=colors["black"],
-                #     foreground=colors["aqua"],
-                #     fontsize=15,
-                # ),
-                # widget.Battery(
-                #     charge_char="",
-                #     discharge_char="",
-                #     full_char="100",
-                #     format="{percent:2.0%}",
-                #     background=colors["black"],
-                #     foreground=colors["aqua"],
-                # ),
-                # widget.TextBox(
-                #     text="",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                # ),
-                # widget.TextBox("   "),
+                widget.TextBox(" "),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    " ",
+                    fontsize=17,
+                    # background=colors["black"],
+                    foreground=colors["aqua"],
+                ),
+                widget.Battery(
+                    charge_char="",
+                    discharge_char="",
+                    full_char="100",
+                    format="{percent:2.0%}",
+                    # background=colors["black"],
+                    foreground=colors["aqua"],
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox("  "),
             ],
             24,
-            margin=8,
+            # margin=8,
             opacity=1,
             # background="#32302f",
         ),
@@ -500,13 +513,13 @@ floating_layout = layout.Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# startup applications
+
+# startup apps
 @hook.subscribe.startup
-def after_start():
-    call([
-        '/usr/bin/picom -b',
-        '/usr/bin/caffeine',
-        ])
+def afterstart():
+    home = os.path.expanduser("~/.config/qtile/autostart")
+    subcall([home])
+
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
