@@ -26,6 +26,7 @@ set laststatus=2
 " depending on the distro you may need to install gvim to get this feature
 " you can check that you have a version of vim capable of this by running this command 'vim --version | grep clipboard'
 " if you see +clipboard it will work, if not it won't.
+set clipboard=unnamed
 set clipboard=unnamedplus
 " The backspace key has slightly unintuitive behavior by default. For example,
 " by default, you can't backspace before the insertion point set with 'i'.
@@ -125,6 +126,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 " easily show git diffs
 Plug 'airblade/vim-gitgutter'
+" code snippets
+Plug 'honza/vim-snippets'
 call plug#end()
 " ============================================================================
 "                                                               VIM-COMMENTARY
@@ -156,12 +159,47 @@ nmap <F8> :TagbarToggle<CR>
 set listchars=tab:>->,space:·,trail:~,extends:>,precedes:<
 set list
 " ============================================================================
+"                                    (vim-snippets+coc-snippets) Code Snippets
+" ============================================================================
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+" Make <tab> trigger, confirm, expand and jump.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+" ============================================================================
 "                                                                 CoC SETTINGS
 " ============================================================================
 
 " CoC tab and shift+tab to navigate auto-complete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " CoC prettier usage(:Prettier)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " CocConfig shortcut
@@ -182,6 +220,7 @@ set termguicolors
 let ayucolor="dark"
 "·set·colorscheme·(gruvbox,·dracula,·ayu, molokai, badwolf, purify)
 colorscheme gruvbox
+colorscheme ayu
 " ============================================================================
 "                                                                      AIRLINE
 " ============================================================================
@@ -199,8 +238,8 @@ let g:airline_theme = "distinguished"
 " ============================================================================
 
 " sets font for neovide
-"set guifont=FiraCode\ NF:h11
-set guifont=Dank\ Mono:h8.5
+set guifont=FiraCode\ NF:h11
+" set guifont=Dank\ Mono:h8.5
 " set mouse scrolling and compatibility with neovide
 set mouse=a
 "sets certain visual effects for cursor

@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+#:Prevent screensaver at startup
+caffeine -a &
+
+#:X-comp
+picom &
+
+#:Set refresh-rate to 144Hz
+xrandr --output HDMI-0 --mode 2560x1080 --rate 144
+
+#:Set random wallpaper at startup
+nitrogen --set-scaled --random {home_dir}/Pictures/dtwallpapers
