@@ -1,3 +1,4 @@
+### OMZ Setup ###
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yeti/.oh-my-zsh"
 
@@ -5,7 +6,7 @@ export ZSH="/home/yeti/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="jovial"
+ZSH_THEME="avit"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
@@ -31,21 +32,33 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# Settings for Japanese input
+
+### Japanese input ###
 export GTK_IM_MODULE='ibus'
 export QT_IM_MODULE='ibus'
 export XMODIFIERS=@im='ibus'
-#Toolbar for anthy (Japanese input)
+#Toolbar for anthy
 ibus-daemon -drx
 
-# fnm
+
+### fnm ###
 export PATH=/home/yeti/.fnm:$PATH
 eval "`fnm env`"
 
 source /etc/default/locale
 
-# Aliases
+
+### Aliases ###
 # For a full list of active aliases, run `alias`.
 if [ -f ~/.zsh_aliases ]; then
   . ~/.zsh_aliases
 fi
+
+
+### My Prompt ###
+# PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1~%f%b %# '
+
+
+### pfetch ###
+PF_INFO="ascii title os kernel uptime pkgs memory" pfetch
+# neofetch and uwufetch also available
