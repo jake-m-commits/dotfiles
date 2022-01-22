@@ -1,95 +1,5 @@
-" ============================================================================
-" ----------------------------> NEOVIM CONFIG <-------------------------------
-" ============================================================================
+" ----------------------------| NEOVIM CONFIG |-------------------------------
 
-" Vim is based on Vi. Setting `nocompatible` switches from the default
-" Vi-compatibility mode and enables useful Vim functionality.
-set nocompatible
-" activate ruler
-set colorcolumn=80
-" activate nowrap
-set nowrap
-" Reduce update time (mostly to asynchronously show git diffs)
-set updatetime=100
-" Turn on syntax highlighting.
-syntax on
-" Disable the default Vim startup message.
-set shortmess+=I
-" Show line numbers.
-set number
-" This enables relative line numbering mode.
-" with relative and regular the current line will show the actual line number
-set relativenumber
-" Always show the status line at the bottom, even if you only have one window open.
-set laststatus=2
-" use the system clipboard instead of buffer
-" depending on the distro you may need to install gvim to get this feature
-" you can check that you have a version of vim capable of this by running this command 'vim --version | grep clipboard'
-" if you see +clipboard it will work, if not it won't.
-set clipboard=unnamed
-set clipboard=unnamedplus
-" The backspace key has slightly unintuitive behavior by default. For example,
-" by default, you can't backspace before the insertion point set with 'i'.
-" This configuration makes backspace behave more reasonably, in that you can
-" backspace over anything.
-set backspace=indent,eol,start
-" replace tabs with spaces
-set expandtab
-" 1 tab = 2 spaces
-set tabstop=2 shiftwidth=2
-" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
-" shown in any window) that has unsaved changes. This is to prevent you from "
-" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
-" hidden buffers helpful enough to disable this protection. See `:help hidden`
-" for more information on this.
-set hidden
-" Do not save backup files. and swap files
-set nobackup
-set noswapfile
-" alternatively you could save them in a different location,
-" just uncomment the lines  below and comment out the nobackup and noswapfile above
-"set backupdir=~/.vim/backup//
-"set directory=~/.vim/swap//
-"set undodir=~/.vim/undo//
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
-set ignorecase
-set smartcase
-" Enable searching as you type, rather than waiting till you press enter.
-set incsearch
-" enable wildmenu, a little menu that displays files and commands in the button left corner
-set wildmenu
-set wildmode=list:longest,full
-" Unbind some useless/annoying default key bindings.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-" Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
-" Try to prevent bad habits like using the arrow keys for movement.
-" commented out so that mouse scroll wheel works
-"nnoremap <Left>  :echo \"Use h"<CR>
-"nnoremap <Right> :echo \"Use l"<CR>
-"nnoremap <Up>    :echo \"Use k"<CR>
-"nnoremap <Down>  :echo \"Use j"<CR>
-" ============================================================================
-"                                                                 NETRW CONFIG
-" ============================================================================
-
-" tree file explorer with netrw
-let g:netrw_keepdir = 0 " avoid move files error
-let g:netrw_liststyle = 3 " set tree like view
-let g:netrw_banner = 0 " remove top banner
-let g:netrw_browse_split = 2 " open in vertical split
-"let g:netrw_localcopydircmd = 'cp -r' " enable recursive copy for dirs
-let g:netrw_winsize = 20 " set width to 20% of screen
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide dot files by default
-augroup netrw_setup | au!
-  au FileType netrw nmap <buffer> l <CR>
-augroup END
-" open file explorer with ,e
-nnoremap <silent> ,e :Lexplore<cr>
-" set vim splits to the right
-set splitright
 " ============================================================================
 "                                                                      PLUGINS
 " ============================================================================
@@ -114,12 +24,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " highlight yanks
 Plug 'machakann/vim-highlightedyank'
-" navigation for tmux
-Plug 'christoomey/vim-tmux-navigator'
 " code folding
 Plug 'tmhedberg/SimpylFold'
-" tagbar + ctags
-Plug 'preservim/tagbar'
 " show git info (git diffs, prevent buffer saves, show adds, mods, etc.)
 Plug 'tpope/vim-fugitive'
 " makes commenting easier
@@ -128,7 +34,97 @@ Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 " code snippets
 Plug 'honza/vim-snippets'
+" smooth scrolling
+Plug 'karb94/neoscroll.nvim'
 call plug#end()
+
+" ============================================================================
+"                                                                      GENERAL
+" ============================================================================
+
+" Highlight current line
+set cursorline
+" Set default shell to zsh for neovim
+" To enter term in split `:sp term://zsh` or `:vsp term://zsh`
+set shell=/usr/bin/zsh
+" Use Escape key to exit terminal mode
+tnoremap <Esc> <C-\><C-n>
+" Setting `nocompatible` switches from the default
+" Vi-compatibility mode and enables useful Vim functionality.
+set nocompatible
+" activate ruler
+set colorcolumn=80
+" activate nowrap
+set nowrap
+" Reduce update time (mostly to asynchronously show git diffs)
+set updatetime=50
+" Turn on syntax highlighting.
+syntax on
+" Disable the default Vim startup message.
+" set shortmess+=I
+" Show line numbers.
+set number
+set relativenumber
+" Always show the status line at the bottom, even if you only have one window open.
+set laststatus=2
+" use the system clipboard instead of buffer
+" if it doesn't work, install [xclip for x11] or [wl-copy and wl-paste for
+" wayland]
+set clipboard=unnamed
+set clipboard=unnamedplus
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
+" replace tabs with spaces
+set expandtab
+" 1 tab = 2 spaces
+set tabstop=2 shiftwidth=2
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+set hidden
+" Do not save backup files. and swap files
+set nobackup
+set noswapfile
+" alternatively you could save them in a different location:
+"set backupdir=~/.vim/backup//
+"set directory=~/.vim/swap//
+"set undodir=~/.vim/undo//
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
+" Enable wildmenu, a little menu that displays files and commands in the buttom left corner
+set wildmenu
+set wildmode=list:longest,full
+" Unbind some useless/annoying default key bindings.
+" 'Q' in normal mode enters Ex mode. You almost never want this.
+nmap Q <Nop>
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
+" ============================================================================
+"                                                                 NETRW CONFIG
+" ============================================================================
+
+let g:netrw_keepdir = 0                        " avoid move files error
+let g:netrw_liststyle = 3                      " set tree like view
+let g:netrw_banner = 0                         " remove top banner
+let g:netrw_browse_split = 2                   " open in vertical split
+let g:netrw_localcopydircmd = 'cp -r'          " enable recursive copy for dirs
+let g:netrw_winsize = 20                       " set width to 20% of screen
+" let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide dot files by default
+augroup netrw_setup | au!
+  au FileType netrw nmap <buffer> l <CR>
+augroup END
+nnoremap <silent> ,e :Lexplore<cr>
+set splitright
+
 " ============================================================================
 "                                                               VIM-COMMENTARY
 " ============================================================================
@@ -136,28 +132,25 @@ call plug#end()
 " 'gc' to comment out highlighted content in VISUAL mode
 " 'gcc' to comment out line under cursor
 " 'gcgc' to uncomment a set of adjacent comments
+
 " ============================================================================
 "                                                                 VIM-FUGITIVE
 " ============================================================================
 
 " ============================================================================
-"                                                                       TAGBAR
-" ============================================================================
-
-" set F8 to toggle the tagbar
-nmap <F8> :TagbarToggle<CR>
-" ============================================================================
 "                                                                   AUTO-PAIRS
 " ============================================================================
 
 " ( alt+p ) toggle autopairs
+
 " ============================================================================
 "                                                        WHITESPACE MANAGEMENT
 " ============================================================================
 
 " show whitespace
-set listchars=tab:>->,space:·,trail:~,extends:>,precedes:<
+set listchars=tab:>--,space:·,trail:~,extends:>,precedes:<
 set list
+
 " ============================================================================
 "                                    (vim-snippets+coc-snippets) Code Snippets
 " ============================================================================
@@ -193,6 +186,7 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
 " ============================================================================
 "                                                                 CoC SETTINGS
 " ============================================================================
@@ -210,6 +204,7 @@ function! SetupCommandAbbrs(from, to)
 endfunction
 " Use CC to open coc config
 call SetupCommandAbbrs('CC', 'CocConfig')
+
 " ============================================================================
 "                                                                       THEMES
 " ============================================================================
@@ -219,8 +214,8 @@ set termguicolors
 "let ayucolor="mirage"
 let ayucolor="dark"
 "·set·colorscheme·(gruvbox,·dracula,·ayu, molokai, badwolf, purify)
-colorscheme gruvbox
 colorscheme ayu
+
 " ============================================================================
 "                                                                      AIRLINE
 " ============================================================================
@@ -233,6 +228,8 @@ colorscheme ayu
 "   ayu_dark
 " )
 let g:airline_theme = "distinguished"
+let g:airline_powerline_fonts = 1
+
 " ============================================================================
 "                                                                      NEOVIDE
 " ============================================================================
@@ -244,17 +241,7 @@ set guifont=FiraCode\ NF:h11
 set mouse=a
 "sets certain visual effects for cursor
 "let g:neovide_cursor_vfx_mode = "pixiedust
-" ============================================================================
-"                                                              TMUX NAVIGATION
-" ============================================================================
 
-"let g:tmux_navigator_no_mappings = 1
-"
-"nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-"nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-"nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-"nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-"nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 " ============================================================================
 "                                                             RAINBOW BRACKETS
 " ============================================================================
@@ -290,6 +277,7 @@ au Syntax * RainbowParenthesesLoadBraces
 ":RainbowParenthesesLoadSquare   " []
 ":RainbowParenthesesLoadBraces   " {}
 ":RainbowParenthesesLoadChevrons " <>
+
 " ============================================================================
 "                                                                         MAPS
 " ============================================================================
@@ -302,3 +290,16 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" ============================================================================
+"                                                                    SIMPYFOLD
+" ============================================================================
+
+let g:SimpylFold_docstring_preview = 1
+
+" ============================================================================
+"                                                                    NEOSCROLL
+" ============================================================================
+
+lua require('neoscroll').setup()
+" Smooth scrolling for window movement commands (default mappings):
+" <C-u>, <C-d>, <C-b>, <C-f>, <C-y>, <C-e>, zt, zz, zb.
