@@ -37,134 +37,175 @@ terminal = "kitty"
 home_dir = os.path.expanduser("~")
 
 keys = [
+    # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    # Move windows between left/right columns or move up/down in current stack.
+    # Moving out of range in Columns layout will create new column.
     Key(
-        [mod, "shift"],
-        "h",
+        [mod, "shift"], "h",
         lazy.layout.shuffle_left(),
-        desc="Move window to the left",
+        desc="Move window to the left"
     ),
     Key(
-        [mod, "shift"],
-        "l",
+        [mod, "shift"], "l",
         lazy.layout.shuffle_right(),
         desc="Move window to the right",
     ),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key(
+        [mod, "shift"], "j",
+        lazy.layout.shuffle_down(),
+        desc="Move window down"
+    ),
+    Key(
+        [mod, "shift"], "k",
+        lazy.layout.shuffle_up(),
+        desc="Move window up"
+    ),
+    # Grow windows. If current window is on the edge of screen and direction
+    # will be to screen edge - window would shrink.
+    Key(
+        [mod, "control"], "h",
+        lazy.layout.grow_left(),
+        desc="Grow window to the left"
+    ),
+    Key(
+        [mod, "control"], "l",
+        lazy.layout.grow_right(),
+        desc="Grow window to the right"
+    ),
+    Key(
+        [mod, "control"], "j",
+        lazy.layout.grow_down(),
+        desc="Grow window down"
+    ),
+    Key(
+        [mod, "control"], "k",
+        lazy.layout.grow_up(),
+        desc="Grow window up"
+    ),
+    Key(
+        [mod], "n",
+        lazy.layout.normalize(),
+        desc="Reset all window sizes"
+    ),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key(
-        [mod, "shift"],
-        "Return",
+        [mod, "shift"], "Return",
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "p", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    # this is to launch rofi
-    Key([mod], "r", lazy.spawn("rofi -modi drun,run -show drun -show-icons"), desc="Launch rofi"),
-    # to lock the screen
-    Key([mod], "q", lazy.spawn("slock"), desc="lock the screen"),
-    # to take screenshot
-    # Key(
-    #     [mod, "shift"],
-    #     "s",
-    #     lazy.spawn(f"import -silent {home_dir}/ScreenShots/image.png"),
-    #     desc="take screenshot",
-    # ),
-    # Key(
-    #     [mod],
-    #     "c",
-    #     lazy.spawn(
-    #         f"xclip -selection clipboard -t image/png -i {home_dir}/ScreenShots/image.png"
-    #     ),
-    #     desc="cropped screenshot",
-    # ),
-    # to take fullscreen shot
-    # Key(
-    #     [mod],
-    #     "s",
-    #     lazy.spawn(f"import -silent -window root {home_dir}/ScreenShots/image.png"),
-    #     desc="take full screenshot of x-server",
-    # ),
-    # to change wallpaper
     Key(
-        [mod],
-        "t",
-        lazy.spawn(
-            f"nitrogen --set-scaled --random {home_dir}/Pictures/dtwallpapers/"
-            # {home_dir}/Pictures/wallpapers/
-        ),
-        desc="change wallpaper",
+        [mod], "Return",
+        lazy.spawn(terminal),
+        desc="Launch terminal"
     ),
-    # volume controls for keychron keyboard
+    # Toggle between different layouts as defined below
+    Key(
+        [mod], "Tab",
+        lazy.next_layout(),
+        desc="Toggle between layouts"
+    ),
+    Key(
+        [mod], "w",
+        lazy.window.kill(),
+        desc="Kill focused window"
+    ),
+    Key(
+        [mod, "control"], "r",
+        lazy.restart(),
+        desc="Restart Qtile"
+    ),
+    Key(
+        [mod, "control"], "q",
+        lazy.shutdown(),
+        desc="Shutdown Qtile"
+    ),
     # Key(
-    #     [], "XF86AudioRaiseVolume",
-    #     lazy.spawn("amixer -c 0 -q set Master 1dB+")
+    #     [mod], "p",
+    #     lazy.spawncmd(),
+    #     desc="Spawn a command using a prompt widget"
     # ),
+    Key(
+        [mod], "r",
+        lazy.spawn("rofi -modi drun,run -show drun -show-icons"),
+        desc="Launch rofi"
+    ),
+    Key(
+        [mod], "q",
+        lazy.spawn("slock"),
+        desc="Lock the screen"
+    ),
+    Key(
+        [mod, "shift"], "s",
+        lazy.spawn(f"import -silent {home_dir}/.screenshot/image.png"),
+        desc="Cropped Screenshot",
+    ),
     # Key(
-    #     [], "XF86AudioLowerVolume",
-    #     lazy.spawn("amixer -c 0 -q set Master 1dB-")
+    #     [mod], "c",
+    #     lazy.spawn(f"xclip -selection clipboard -t image/png -i {home_dir}/.screenshot/crop_image.png"),
+    #     desc="Cropped screenshot",
     # ),
-    # Key(
-    #     [], "XF86AudioMute",
-    #     lazy.spawn("amixer -c 0 -q set Master toggle")
-    # ),
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%- unmute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+ unmute")),
+    Key(
+        [mod], "s",
+        lazy.spawn(f"import -silent -window root {home_dir}/.screenshot/full_image.png"),
+        desc="Full screenshot",
+    ),
+    Key(
+        [mod], "t",
+        lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/eos_wallpapers_community/"),
+        desc="Change wallpaper",
+    ),
+    # Brightness
+    Key(
+        [], "XF86MonBrightnessUp",
+        lazy.spawn("xbacklight -inc 10")
+    ),
+    Key(
+        [], "XF86MonBrightnessDown",
+        lazy.spawn("xbacklight -dec 10")
+    ),
+    # Volume
+    Key(
+        [], "XF86AudioMute",
+        lazy.spawn("amixer -q set Master toggle")
+    ),
+    Key(
+        [], "XF86AudioLowerVolume",
+        lazy.spawn("amixer -q sset Master 5%- unmute")
+    ),
+    Key(
+        [], "XF86AudioRaiseVolume",
+        lazy.spawn("amixer -q sset Master 5%+ unmute")
+    ),
 ]
 
 groups = [
-    Group("a", label=" "),
-    Group("s", label=" "),
-    Group("d", label=" "),
-    Group("f", label=" "),
-    Group("g", label=" "),
+    Group("1", label=" "),
+    Group("2", label=" "),
+    Group("3", label=" "),
+    Group("4", label=" "),
+    Group("5", label=" "),
 ]
-    # Group("1", label="一"),
-    # Group("2", label="二"),
-    # Group("3", label="三"),
-    # Group("4", label="四"),
-    # Group("5", label="五"),
-
-    # Group("1", label=" "),
-    # Group("2", label=" "),
-    # Group("3", label=" "),
-    # Group("4", label=" "),
-    # Group("5", label=" "),
 
 for i in groups:
     keys.extend(
         [
-            # mod1 + letter of group = switch to group
+            # mod + groupID = switch to group
             Key(
-                [mod],
-                i.name,
+                [mod], i.name,
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
             ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
+            # mod + shift + groupID = switch to & move focused window to group
             Key(
-                [mod, "shift"],
-                i.name,
+                [mod, "shift"], i.name,
                 lazy.window.togroup(i.name, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.name),
             ),
@@ -180,8 +221,8 @@ layouts = [
         margin=3,
         border_on_single=True,
         border_width=3,
-        border_focus="#ff1188",
-        border_normal="#504945",
+        border_focus="#98971a",
+        border_normal="504945",
     ),
     # layout.MonadTall(
     #     margin=5,
@@ -206,12 +247,9 @@ colors = dict(
     blue="#458588",
     green="#98971a",
     yellow="#d79921",
-    orange="#fc9630",
     aqua="#6a8e5f",
     white="#a49882",
-    real_white="#ffffff",
     black="#504945",
-    pink="#ff1188",
 )
 
 widget_defaults = dict(
@@ -224,14 +262,15 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        # wallpaper="~/Pictures/wallpapers/gruvbox_buildings.png",
-        # wallpaper_mode="stretch",
+        wallpaper="~/Pictures/reddit/gruvbox_buildings.png",
+        wallpaper_mode="stretch",
         top=bar.Bar(
             [
+                widget.TextBox("   "),
                 widget.TextBox(
-                    "  ",
-                    foreground=colors["blue"],
-                    fontsize=20,
+                    " ",
+                    foreground=colors["green"],
+                    fontsize=18,
                     # background=colors["black"],
                 ),
                 widget.TextBox(
@@ -263,7 +302,7 @@ screens = [
                     fontsize=24,
                     padding=0,
                 ),
-                widget.TextBox("  "),
+                widget.TextBox(" "),
                 widget.WindowName(format="{name}", max_chars=100),
                 widget.TextBox(
                     text="|",
@@ -293,7 +332,36 @@ screens = [
                     fontsize=24,
                     padding=0,
                 ),
-                widget.Systray(icon_size=20),
+                widget.Systray(),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(" "),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    " ",
+                    # background=colors["black"],
+                    foreground=colors["blue"],
+                    fontsize=20,
+                ),
+                widget.Backlight(
+                    brightness_file="/sys/class/backlight/intel_backlight/brightness",
+                    max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
+                    # background=colors["black"],
+                    foreground=colors["blue"],
+                ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -315,13 +383,13 @@ screens = [
                     " ",
                     fontsize=20,
                     # background=colors["black"],
-                    foreground=colors["pink"],
+                    foreground=colors["red"],
                 ),
                 widget.CPU(
                     font="FiraCode Nerd Font",
                     format="{load_percent}%",
                     # background=colors["black"],
-                    foreground=colors["pink"],
+                    foreground=colors["red"],
                 ),
                 widget.TextBox(
                     text="|",
@@ -405,9 +473,9 @@ screens = [
                     " ",
                     fontsize=17,
                     # background=colors["black"],
-                    foreground=colors["blue"],
+                    foreground=colors["yellow"],
                 ),
-                widget.Volume(foreground=colors["blue"]),
+                widget.Volume(foreground=colors["yellow"]),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -417,12 +485,42 @@ screens = [
                     padding=0,
                 ),
                 widget.TextBox(" "),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    " ",
+                    fontsize=17,
+                    # background=colors["black"],
+                    foreground=colors["aqua"],
+                ),
+                widget.Battery(
+                    charge_char="",
+                    discharge_char="",
+                    full_char="100",
+                    format="{percent:2.0%}",
+                    # background=colors["black"],
+                    foreground=colors["aqua"],
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                ),
+                widget.TextBox("  "),
             ],
             24,
             # margin=8,
             opacity=1,
-            background="#32302f",
-            # background="#ff0000.00",
+            # background="#32302f",
         ),
         bottom=bar.Gap(4),
         left=bar.Gap(3),
@@ -433,15 +531,19 @@ screens = [
 # Drag floating layouts.
 mouse = [
     Drag(
-        [mod],
-        "Button1",
+        [mod], "Button1",
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
     Drag(
-        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+        [mod], "Button3",
+        lazy.window.set_size_floating(),
+        start=lazy.window.get_size()
     ),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+    Click(
+        [mod], "Button2",
+        lazy.window.bring_to_front()
+    ),
 ]
 
 dgroups_key_binder = None
@@ -466,11 +568,13 @@ floating_layout = layout.Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# startup applications
+
+# startup apps
 @hook.subscribe.startup
-def autostart():
+def afterstart():
     home = os.path.expanduser("~/.config/qtile/autostart")
     subcall([home])
+
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+picom -b
+xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" 335 1
+
+### Dual-monitor Setup ###
+intern=eDP1
+extern=DP1
+
+if xrandr | grep "$extern disconnected"; then
+  xrandr --output "$extern" --off --output "$intern" --auto
+else
+  xrandr --output "$extern" --primary --auto --output "$intern" --below "$extern" --auto
+fi
+
+### Default Background Image ###
+nitrogen --set-scaled ~/Pictures/eos_wallpapers_community/Endy_vector_satelliet.png

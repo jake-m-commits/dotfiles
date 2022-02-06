@@ -1,4 +1,0 @@
-#!/bin/zsh
-caffeine start &
-picom -b
-xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" 335 1
