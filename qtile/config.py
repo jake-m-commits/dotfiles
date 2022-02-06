@@ -96,15 +96,20 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
+    # Key(
+    #     [mod, "shift"], "Return",
+    #     lazy.layout.toggle_split(),
+    #     desc="Toggle between split and unsplit sides of stack",
+    # ),
     Key(
         [mod, "shift"], "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
+        lazy.spawn("alacritty"),
+        desc="Launch alacritty",
     ),
     Key(
         [mod], "Return",
         lazy.spawn(terminal),
-        desc="Launch terminal"
+        desc="Launch kitty"
     ),
     # Toggle between different layouts as defined below
     Key(
@@ -187,11 +192,24 @@ keys = [
 ]
 
 groups = [
-    Group("1", label=" "),
-    Group("2", label=" "),
-    Group("3", label=" "),
-    Group("4", label=" "),
-    Group("5", label=" "),
+    Group("1", label="1"),
+    Group("2", label="2"),
+    Group("3", label="3"),
+    Group("4", label="4"),
+    Group("5", label="5"),
+    Group("6", label="6"),
+    Group("7", label="7"),
+    Group("8", label="8"),
+    Group("9", label="9"),
+    # Group("1", label=" "),
+    # Group("2", label=" "),
+    # Group("3", label=" "),
+    # Group("4", label=" "),
+    # Group("5", label=" "),
+    # Group("6", label=" "),
+    # Group("7", label=" "),
+    # Group("8", label=" "),
+    # Group("9", label=" "),
 ]
 
 for i in groups:
@@ -268,7 +286,7 @@ screens = [
             [
                 widget.TextBox("   "),
                 widget.TextBox(
-                    " ",
+                    " ",
                     foreground=colors["green"],
                     fontsize=18,
                     # background=colors["black"],

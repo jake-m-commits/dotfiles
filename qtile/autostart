@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-picom -b
+### Startup ###
+
+caffeine &
+conky &
+picom -b --config /home/yeti/.config/picom/picom.conf
 xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" 335 1
 
 ### Dual-monitor Setup ###
