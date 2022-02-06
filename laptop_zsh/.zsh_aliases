@@ -1,0 +1,32 @@
+### Aliases ###
+
+
+# Editing
+alias rm='rm -i'
+alias e='nvim'
+# alias nv='neovide'
+
+# Package Management
+alias syu='cowsay -f tux "Time to update!" && paru'
+alias yeet='cowsay -f tux "Time to go..." && paru -Rcs'
+alias clean='cowsay -f tux "Clean up time!" && paru -c'
+
+# Navigation
+alias ls='lsd'
+# alias l='ls -l'
+# alias la='ls -a'
+# alias lla='ls -la'
+alias lt='ls --tree'
+
+# Weather
+alias we='/home/yeti/Documents/weather/wttr'
+
+# Extra
+# alias bonsai='cbonsai -li'
+alias pipes='pipes-rs'
+alias neo='neofetch --ascii ~/Documents/clones/dotfiles/nerv.txt && syu'
+alias btm='btm --color gruvbox -R'
+
+# Termianl Exit & Clear
+alias x='exit'
+alias clear='clear; colorscript random'
