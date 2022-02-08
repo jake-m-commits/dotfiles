@@ -25,7 +25,6 @@
 # SOFTWARE.
 
 import os.path
-
 from typing import List
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
@@ -33,9 +32,10 @@ from libqtile.lazy import lazy
 from subprocess import call as subcall
 
 mod = "mod4"
+local = "Langley"
 terminal = "kitty"
+home_dir = os.path.expanduser("~")
 launcher = "rofi -modi drun,run -show drun -show-icons -font 'FiraCode Nerd Font 12'"
-# home_dir = os.path.expanduser("~")
 
 keys = [
     Key(
@@ -145,17 +145,17 @@ keys = [
         ),
     Key(
         [mod, "shift"], "s",
-        lazy.spawn(f"import -silent ~/Pictures/scrnshots/cropped.png"),
+        lazy.spawn(f"import -silent {home_dir}/Pictures/scrnshots/cropped.png"),
         desc="Cropped Screenshot",
         ),
     Key(
         [mod], "s",
-        lazy.spawn(f"import -silent -window root ~/Pictures/scrnshots/full.png"),
+        lazy.spawn(f"import -silent -window root {home_dir}/Pictures/scrnshots/full.png"),
         desc="Full screenshot",
         ),
     Key(
         [mod], "t",
-        lazy.spawn(f"nitrogen --random --set-scaled ~/Pictures/walls/"),
+        lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/walls/"),
         desc="Change wallpaper",
         ),
     # Brightness
@@ -227,7 +227,7 @@ for i in groups:
 
 layouts = [
     layout.Columns(
-        margin=8,
+        margin=5,
         border_width=3,
         border_on_single=True,
         border_focus="#98971a",
@@ -391,97 +391,97 @@ screens = [
                     padding=0,
                     ),
                 widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(
-                    " ",
-                    fontsize=20,
-                    # background=colors["black"],
-                    foreground=colors["red"],
-                    ),
-                widget.CPU(
-                    font="FiraCode Nerd Font",
-                    format="{load_percent}%",
-                    # background=colors["black"],
-                    foreground=colors["red"],
-                    update_interval=2,
-                    ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(
-                    " ",
-                    fontsize=20,
-                    # background=colors["black"],
-                    foreground=colors["white"],
-                    ),
-                widget.ThermalSensor(
-                    font="FiraCode Nerd Font",
-                    # background=colors["black"],
-                    foreground=colors["white"],
-                    foreground_alert=colors["red"],
-                    tag_sensor="Package id 0",
-                    show_tag=False,
-                    metric=True,
-                    update_interval=2,
-                    ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(
-                    " ",
-                    fontsize=17,
-                    # background=colors["black"],
-                    foreground=colors["green"],
-                    ),
-                widget.Memory(
-                    format="{MemUsed: .0f} MB",
-                    # background=colors["black"],
-                    foreground=colors["green"],
-                    ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=20,
+                #     # background=colors["black"],
+                #     foreground=colors["red"],
+                #     ),
+                # widget.CPU(
+                #     font="FiraCode Nerd Font",
+                #     format="{load_percent}%",
+                #     # background=colors["black"],
+                #     foreground=colors["red"],
+                #     update_interval=2,
+                #     ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=20,
+                #     # background=colors["black"],
+                #     foreground=colors["white"],
+                #     ),
+                # widget.ThermalSensor(
+                #     font="FiraCode Nerd Font",
+                #     # background=colors["black"],
+                #     foreground=colors["white"],
+                #     foreground_alert=colors["red"],
+                #     tag_sensor="Package id 0",
+                #     show_tag=False,
+                #     metric=True,
+                #     update_interval=2,
+                #     ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=17,
+                #     # background=colors["black"],
+                #     foreground=colors["green"],
+                #     ),
+                # widget.Memory(
+                #     format="{MemUsed: .0f} MB",
+                #     # background=colors["black"],
+                #     foreground=colors["green"],
+                #     ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -536,10 +536,30 @@ screens = [
                     fontsize=24,
                     padding=0,
                     ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                    ),
+                widget.Wttr(
+                    location={local: local},
+                    font="FiraCode Nerd Font",
+                    ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    # background=colors[0],
+                    font="FiraCode Nerd Font",
+                    fontsize=24,
+                    padding=0,
+                    ),
                 widget.TextBox("  "),
             ],
             25,
-            margin=5,
+            margin=8,
             # opacity=1,
             # background="#32302f",
             background="#000000b3",
@@ -582,7 +602,8 @@ floating_layout = layout.Floating(
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
-        Match(wm_class='pcmanfm'),  # Thunar file browser
+        # Match(wm_class='pcmanfm'),  # Thunar file browser
+        # Match(wm_class='nautilus'),  # Thunar file browser
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
     ]
