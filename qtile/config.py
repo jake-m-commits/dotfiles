@@ -34,161 +34,152 @@ from subprocess import call as subcall
 
 mod = "mod4"
 terminal = "kitty"
-home_dir = os.path.expanduser("~")
+launcher = "rofi -modi drun,run -show drun -show-icons -font 'FiraCode Nerd Font 12'"
+# home_dir = os.path.expanduser("~")
 
 keys = [
-    # Switch between windows
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
+    Key(
+        [mod], "h",
+        lazy.layout.left(),
+        desc="Move focus to left"
+        ),
+    Key(
+        [mod], "l",
+        lazy.layout.right(),
+        desc="Move focus to right"
+        ),
+    Key(
+        [mod], "j",
+        lazy.layout.down(),
+        desc="Move focus down"
+        ),
+    Key(
+        [mod], "k",
+        lazy.layout.up(),
+        desc="Move focus up"
+        ),
+    Key(
+        [mod], "space",
+        lazy.layout.next(),
+        desc="Move window focus to other window"
+        ),
     Key(
         [mod, "shift"], "h",
         lazy.layout.shuffle_left(),
         desc="Move window to the left"
-    ),
+        ),
     Key(
         [mod, "shift"], "l",
         lazy.layout.shuffle_right(),
         desc="Move window to the right",
-    ),
+        ),
     Key(
         [mod, "shift"], "j",
         lazy.layout.shuffle_down(),
         desc="Move window down"
-    ),
+        ),
     Key(
         [mod, "shift"], "k",
         lazy.layout.shuffle_up(),
         desc="Move window up"
-    ),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
+        ),
     Key(
         [mod, "control"], "h",
         lazy.layout.grow_left(),
         desc="Grow window to the left"
-    ),
+        ),
     Key(
         [mod, "control"], "l",
         lazy.layout.grow_right(),
         desc="Grow window to the right"
-    ),
+        ),
     Key(
         [mod, "control"], "j",
         lazy.layout.grow_down(),
         desc="Grow window down"
-    ),
+        ),
     Key(
         [mod, "control"], "k",
         lazy.layout.grow_up(),
         desc="Grow window up"
-    ),
+        ),
     Key(
         [mod], "n",
         lazy.layout.normalize(),
         desc="Reset all window sizes"
-    ),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    # Key(
-    #     [mod, "shift"], "Return",
-    #     lazy.layout.toggle_split(),
-    #     desc="Toggle between split and unsplit sides of stack",
-    # ),
+        ),
     Key(
         [mod, "shift"], "Return",
         lazy.spawn("alacritty"),
         desc="Launch alacritty",
-    ),
+        ),
     Key(
         [mod], "Return",
         lazy.spawn(terminal),
         desc="Launch kitty"
-    ),
-    # Toggle between different layouts as defined below
+        ),
     Key(
         [mod], "Tab",
         lazy.next_layout(),
         desc="Toggle between layouts"
-    ),
+        ),
     Key(
         [mod], "w",
         lazy.window.kill(),
         desc="Kill focused window"
-    ),
+        ),
     Key(
         [mod, "control"], "r",
         lazy.restart(),
         desc="Restart Qtile"
-    ),
+        ),
     Key(
         [mod, "control"], "q",
         lazy.shutdown(),
         desc="Shutdown Qtile"
-    ),
-    # Key(
-    #     [mod], "p",
-    #     lazy.spawncmd(),
-    #     desc="Spawn a command using a prompt widget"
-    # ),
+        ),
     Key(
         [mod], "r",
-        lazy.spawn("rofi -modi drun,run -show drun -show-icons"),
+        lazy.spawn(launcher),
         desc="Launch rofi"
-    ),
-    Key(
-        [mod], "q",
-        lazy.spawn("slock"),
-        desc="Lock the screen"
-    ),
+        ),
     Key(
         [mod, "shift"], "s",
-        lazy.spawn(f"import -silent {home_dir}/.screenshot/image.png"),
+        lazy.spawn(f"import -silent ~/Pictures/scrnshots/cropped.png"),
         desc="Cropped Screenshot",
-    ),
-    # Key(
-    #     [mod], "c",
-    #     lazy.spawn(f"xclip -selection clipboard -t image/png -i {home_dir}/.screenshot/crop_image.png"),
-    #     desc="Cropped screenshot",
-    # ),
+        ),
     Key(
         [mod], "s",
-        lazy.spawn(f"import -silent -window root {home_dir}/.screenshot/full_image.png"),
+        lazy.spawn(f"import -silent -window root ~/Pictures/scrnshots/full.png"),
         desc="Full screenshot",
-    ),
+        ),
     Key(
         [mod], "t",
-        lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/eos_wallpapers_community/"),
+        lazy.spawn(f"nitrogen --random --set-scaled ~/Pictures/walls/"),
         desc="Change wallpaper",
-    ),
+        ),
     # Brightness
     Key(
         [], "XF86MonBrightnessUp",
         lazy.spawn("xbacklight -inc 10")
-    ),
+        ),
     Key(
         [], "XF86MonBrightnessDown",
         lazy.spawn("xbacklight -dec 10")
-    ),
+        ),
     # Volume
     Key(
         [], "XF86AudioMute",
         lazy.spawn("amixer -q set Master toggle")
-    ),
+        ),
     Key(
         [], "XF86AudioLowerVolume",
         lazy.spawn("amixer -q sset Master 5%- unmute")
-    ),
+        ),
     Key(
         [], "XF86AudioRaiseVolume",
         lazy.spawn("amixer -q sset Master 5%+ unmute")
-    ),
+        ),
 ]
 
 groups = [
@@ -215,49 +206,61 @@ groups = [
 for i in groups:
     keys.extend(
         [
-            # mod + groupID = switch to group
+            # mod + groupID -> switch to group
             Key(
                 [mod], i.name,
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
-            ),
-            # mod + shift + groupID = switch to & move focused window to group
+                ),
+            # mod + shift + groupID -> navigate to & move focused window to group
             Key(
                 [mod, "shift"], i.name,
                 lazy.window.togroup(i.name, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
+                ),
+            # mod + shift + groupID -> only move focused window to group
             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
+            #     desc="move focused window to group {}".format(i.name)
+            # ),
         ]
     )
 
 layouts = [
     layout.Columns(
-        margin=3,
-        border_on_single=True,
+        margin=8,
         border_width=3,
+        border_on_single=True,
         border_focus="#98971a",
-        border_normal="504945",
-    ),
-    # layout.MonadTall(
+        border_normal="#000000"
+        ),
+    layout.TreeTab(
+        font="FiraCode Nerd Font",
+        fontsize=12,
+        active_fg="#d79921",
+        active_bg="#504945",
+        inactive_fg="#a49882",
+        inactive_bg="00000000",
+        bg_color="#000000b3",
+        sections=["Main"],
+        section_top=10,
+        section_fg="#a49882",
+        section_fontsize=14,
+        panel_width=200
+        ),
+    # layout.Bsp(
     #     margin=5,
     #     border_width=3,
-    #     border_focus='#98971a'),
-    # layout.Max(border_on_single=True, border_width=3, border_focus='#98971a')
-    # Try more layouts by unleashing below layouts.
+    #     border_focus='#98971a'
+    #     ),
+    # layout.Zoomy(),
+    # layout.Max(),
     # layout.Stack(num_stacks=2),
-    # layout.Bsp(border_width=3, margin=5),
     # layout.Matrix(border_width=3,margin=5),
-    # # layout.MonadTall(),
+    # layout.MonadTall(),
     # layout.MonadWide(margin=5),
     # layout.RatioTile(fancy=True, border_width=3, margin=5),
     # layout.Tile(border_width=3, margin=5),
-    # layout.TreeTab(margin=5),
     # layout.VerticalTile(margin=5),
-    # layout.Zoomy(margin=5),
 ]
 
 colors = dict(
@@ -280,8 +283,8 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper="~/Pictures/reddit/gruvbox_buildings.png",
-        wallpaper_mode="stretch",
+        #wallpaper="~/Pictures/reddit/gruvbox_buildings.png",
+        #wallpaper_mode="stretch",
         top=bar.Bar(
             [
                 widget.TextBox("   "),
@@ -290,7 +293,7 @@ screens = [
                     foreground=colors["green"],
                     fontsize=18,
                     # background=colors["black"],
-                ),
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -298,7 +301,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.GroupBox(
                     block_highlight_text_color=colors["black"],
                     highlight_method="text",
@@ -311,7 +314,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=16,
                     spacing=10,
-                ),
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -319,7 +322,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.WindowName(format="{name}", max_chars=100),
                 widget.TextBox(
@@ -329,10 +332,9 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox("   ", fontsize=18),
-                widget.Clock(
-                    format="%H:%M:%S ", fontsize=16),
+                widget.Clock(format="%a %d %H:%M:%S ", fontsize=16),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -340,7 +342,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.Spacer(),
                 widget.TextBox(
                     text="|",
@@ -349,7 +351,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.Systray(),
                 widget.TextBox(
                     text="|",
@@ -358,7 +360,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -367,19 +369,19 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(
                     " ",
                     # background=colors["black"],
                     foreground=colors["blue"],
                     fontsize=20,
-                ),
+                    ),
                 widget.Backlight(
                     brightness_file="/sys/class/backlight/intel_backlight/brightness",
                     max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
                     # background=colors["black"],
                     foreground=colors["blue"],
-                ),
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -387,7 +389,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -396,19 +398,20 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(
                     " ",
                     fontsize=20,
                     # background=colors["black"],
                     foreground=colors["red"],
-                ),
+                    ),
                 widget.CPU(
                     font="FiraCode Nerd Font",
                     format="{load_percent}%",
                     # background=colors["black"],
                     foreground=colors["red"],
-                ),
+                    update_interval=2,
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -416,7 +419,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -425,13 +428,13 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(
                     " ",
                     fontsize=20,
                     # background=colors["black"],
                     foreground=colors["white"],
-                ),
+                    ),
                 widget.ThermalSensor(
                     font="FiraCode Nerd Font",
                     # background=colors["black"],
@@ -440,8 +443,8 @@ screens = [
                     tag_sensor="Package id 0",
                     show_tag=False,
                     metric=True,
-                    update_interval=1,
-                ),
+                    update_interval=2,
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -449,7 +452,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -458,18 +461,18 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(
                     " ",
                     fontsize=17,
                     # background=colors["black"],
                     foreground=colors["green"],
-                ),
+                    ),
                 widget.Memory(
                     format="{MemUsed: .0f} MB",
                     # background=colors["black"],
                     foreground=colors["green"],
-                ),
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -477,7 +480,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -486,13 +489,13 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(
                     " ",
                     fontsize=17,
                     # background=colors["black"],
                     foreground=colors["yellow"],
-                ),
+                    ),
                 widget.Volume(foreground=colors["yellow"]),
                 widget.TextBox(
                     text="|",
@@ -501,7 +504,7 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -510,13 +513,13 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox(
                     " ",
                     fontsize=17,
                     # background=colors["black"],
                     foreground=colors["aqua"],
-                ),
+                    ),
                 widget.Battery(
                     charge_char="",
                     discharge_char="",
@@ -524,7 +527,7 @@ screens = [
                     format="{percent:2.0%}",
                     # background=colors["black"],
                     foreground=colors["aqua"],
-                ),
+                    ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
@@ -532,15 +535,16 @@ screens = [
                     font="FiraCode Nerd Font",
                     fontsize=24,
                     padding=0,
-                ),
+                    ),
                 widget.TextBox("  "),
             ],
-            24,
-            # margin=8,
-            opacity=1,
+            25,
+            margin=5,
+            # opacity=1,
             # background="#32302f",
+            background="#000000b3",
         ),
-        bottom=bar.Gap(4),
+        bottom=bar.Gap(3),
         left=bar.Gap(3),
         right=bar.Gap(3),
     ),
@@ -578,7 +582,7 @@ floating_layout = layout.Floating(
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
-        # Match(wm_class='Thunar'),  # Thunar file browser
+        Match(wm_class='pcmanfm'),  # Thunar file browser
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
     ]
@@ -590,7 +594,7 @@ focus_on_window_activation = "smart"
 # startup apps
 @hook.subscribe.startup
 def afterstart():
-    home = os.path.expanduser("~/.config/qtile/autostart")
+    home = os.path.expanduser("~/.config/qtile/autostart.sh")
     subcall([home])
 
 
@@ -602,4 +606,4 @@ def afterstart():
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "qtile"
+wmname = "LG3D"
