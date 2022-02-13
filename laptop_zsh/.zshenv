@@ -1,14 +1,6 @@
 # comment this out for default "xterm-kitty"
 export TERM="xterm-256color"
 
-# Preferred editors for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
-# export VISUAL='neovide'
-
 # silver-teapot env vars
 export FLASK_APP='run.py'
 export FLASK_ENV='development'
