@@ -1,3 +1,3 @@
 #!/bin/bash
-curl -so /home/jake/Documents/weather/wttr_output wttr.in/$1
-cat /home/jake/Documents/weather/wttr_output | head -n -1
+curl -so ~/Documents/weather/wttr_output wttr.in/$1
+cat ~/Documents/weather/wttr_output | head -n -1
