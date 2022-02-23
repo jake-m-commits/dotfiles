@@ -1,14 +1,4 @@
---[[
-
-     Awesome WM configuration template
-     github.com/lcpz
-
---]]
-
 -- {{{ Required libraries
-
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
 local gears         = require("gears")
@@ -23,13 +13,9 @@ local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
-
 -- }}}
 
 -- {{{ Error handling
-
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify {
         preset = naughty.config.presets.critical,
@@ -70,7 +56,7 @@ end
 
 run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
 
--- This function implements the XDG autostart specification
+-- Adds XDG autostart specification
 --[[
 awful.spawn.with_shell(
     'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
@@ -101,14 +87,15 @@ local chosen_theme = themes[5]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "kitty"
-local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
-local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
+local vi_focus     = false
+local cycle_prev   = true
 local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "librewolf"
 
 awful.util.terminal = terminal
---awful.util.tagnames = { "  ", "  ", "  ", "  ", "  " }
-awful.util.tagnames = { "一", "ニ", "三", "四", "五", "六", "七", "八", "九", "十" }
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+-- awful.util.tagnames = { "  ", "  ", "  ", "  ", "  " }
+-- awful.util.tagnames = { "一", "ニ", "三", "四", "五", "六", "七", "八", "九", "十" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -829,7 +816,7 @@ end)
 autorun = true
 autorunApps =
 {
-   "caffeine",
+   "caffeine -a",
    "picom -b"
 }
 if autorun then
