@@ -1,0 +1,26 @@
+### Aliases ###
+
+
+# Editing
+alias rm='rm -i'
+alias cp='cp -v'
+alias mv='mv -v'
+alias e='nvim'
+
+# Package Management
+alias up='printf "xbps...\n";sudo xbps-install -Su && printf "\nflatpak...\n";flatpak update'
+alias add='sudo xbps-install -S'
+alias rem='sudo xbps-remove -Ro'
+alias clean='sudo xbps-remove -O'
+alias sr='xbps-query -Rs'
+
+# Navigation
+alias ls='lsd -l'
+alias lt='ls --tree'
+
+# Weather
+alias we='/home/yeti/Documents/weather/wttr'
+
+# Extra
+alias x='exit'
+# alias clear='clear; colorscript random'

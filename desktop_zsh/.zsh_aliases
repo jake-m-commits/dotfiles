@@ -1,9 +1,0 @@
-# Aliases for ~/.zshrc
-alias rm='rm -i'
-alias nv='neovide'
-alias e='nvim'
-alias syu='cowsay "Time to update!" && yay -Syu'
-alias x='exit'
-alias bonsai='cbonsai -li'
-alias pipes.rs='pipes-rs' # also sh version (pipes.sh)
-alias we='/home/yeti/Documents/weather/wttr'
