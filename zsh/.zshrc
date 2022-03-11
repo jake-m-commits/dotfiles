@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="avit"
+ZSH_THEME="jovial"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -29,7 +29,7 @@ ZSH_THEME="avit"
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 10
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -72,7 +72,6 @@ ZSH_THEME="avit"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  autojump
   urltools
   bgnotify
   zsh-autosuggestions
@@ -99,29 +98,13 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-
 ### Aliases ###
 # For a full list of active aliases, run `alias`.
 if [ -f ~/.zsh_aliases ]; then
   . ~/.zsh_aliases
 fi
 
-
-### fnm ###
-export PATH=/home/yeti/.fnm:$PATH
-eval "`fnm env`"
-
-
-### autojump ###
-[[ -s /home/yeti/.autojump/etc/profile.d/autojump.sh ]] && source /home/yeti/.autojump/etc/profile.d/autojump.sh
-
-autoload -U compinit && compinit -u
-
 ### Other ###
-# pfetch
 # neofetch
+# pfetch
 colorscript random
-
-### Notes ###
-# Start default network for QEMU/KVM and libvirt:
-# sudo virsh net-start default

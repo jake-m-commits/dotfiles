@@ -7,7 +7,7 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias e='nvim'
 
-# Package Management
+# Package Management (XBPS)
 alias up='printf "xbps...\n";sudo xbps-install -Su && printf "\nflatpak...\n";flatpak update'
 alias add='sudo xbps-install -S'
 alias rem='sudo xbps-remove -Ro'
@@ -23,4 +23,4 @@ alias we='/home/yeti/Documents/weather/wttr'
 
 # Extra
 alias x='exit'
-# alias clear='clear; colorscript random'
+alias down='youtube-dl -x --audio-format mp3'
