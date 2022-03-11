@@ -4,37 +4,24 @@
 "                                                                      PLUGINS
 " ============================================================================
 
-" Call and add plugins
 call plug#begin()
-" themes
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim',{'as':'dracula'}
 Plug 'ayu-theme/ayu-vim'
 Plug 'tomasr/molokai'
 Plug 'sjl/badwolf'
-Plug 'kyoz/purify',{'rtp':'vim'}
-" code completion using CoC
+Plug 'rose-pine/neovim',{'as':'rose-pine'}
 Plug 'neoclide/coc.nvim',{'branch': 'release'}
-" autopairs
 Plug 'jiangmiao/auto-pairs'
-" rainbow brackets
 Plug 'kien/rainbow_parentheses.vim'
-" statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" highlight yanks
 Plug 'machakann/vim-highlightedyank'
-" code folding
 Plug 'tmhedberg/SimpylFold'
-" show git info (git diffs, prevent buffer saves, show adds, mods, etc.)
 Plug 'tpope/vim-fugitive'
-" makes commenting easier
 Plug 'tpope/vim-commentary'
-" easily show git diffs
 Plug 'airblade/vim-gitgutter'
-" code snippets
 Plug 'honza/vim-snippets'
-" smooth scrolling
 Plug 'karb94/neoscroll.nvim'
 call plug#end()
 
@@ -213,7 +200,7 @@ call SetupCommandAbbrs('CC', 'CocConfig')
 set termguicolors
 "let ayucolor="mirage"
 let ayucolor="dark"
-"·set·colorscheme·(gruvbox,·dracula,·ayu, molokai, badwolf, purify)
+"·set·colorscheme·(gruvbox,·dracula,·ayu, molokai, badwolf, rose-pine)
 colorscheme ayu
 
 " ============================================================================
