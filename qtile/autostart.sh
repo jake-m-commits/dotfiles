@@ -7,6 +7,8 @@ nitrogen --random --set-scaled ~/Pictures/walls/
 xinput set-prop "SYNA3297:00 06CB:CD50 Touchpad" 335 1
 # ibhagwan's picom
 picom -b --config /home/yeti/.config/picom/vanilla.picom.conf --corner-radius 5
+# regular picom
+# picom -b
 
 ### Dual-monitor Setup ###
 intern=eDP1
