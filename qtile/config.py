@@ -132,40 +132,9 @@ keys = [
         lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/walls/"),
         desc="Change wallpaper",
         ),
-    # Brightness
-    Key(
-        [], "XF86MonBrightnessUp",
-        lazy.spawn("xbacklight -inc 10")
-        ),
-    Key(
-        [], "XF86MonBrightnessDown",
-        lazy.spawn("xbacklight -dec 10")
-        ),
-    # Volume
-    Key(
-        [], "XF86AudioMute",
-        lazy.spawn("amixer -q set Master toggle")
-        ),
-    Key(
-        [], "XF86AudioLowerVolume",
-        lazy.spawn("amixer -q sset Master 5%- unmute")
-        ),
-    Key(
-        [], "XF86AudioRaiseVolume",
-        lazy.spawn("amixer -q sset Master 5%+ unmute")
-        ),
 ]
 
 groups = [
-    # Group("1", label="1"),
-    # Group("2", label="2"),
-    # Group("3", label="3"),
-    # Group("4", label="4"),
-    # Group("5", label="5"),
-    # Group("6", label="6"),
-    # Group("7", label="7"),
-    # Group("8", label="8"),
-    # Group("9", label="9"),
     Group("1", label=""),
     Group("2", label=""),
     Group("3", label=""),
@@ -180,19 +149,16 @@ groups = [
 for i in groups:
     keys.extend(
         [
-            # mod + groupID -> switch to group
             Key(
                 [mod], i.name,
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
                 ),
-            # mod + shift + groupID -> navigate to & move focused window to group
             Key(
                 [mod, "shift"], i.name,
                 lazy.window.togroup(i.name, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.name),
                 ),
-            # mod + shift + groupID -> only move focused window to group
             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
             #     desc="move focused window to group {}".format(i.name)
             # ),
@@ -257,8 +223,6 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        #wallpaper="~/Pictures/reddit/gruvbox_buildings.png",
-        #wallpaper_mode="stretch",
         top=bar.Bar(
             [
                 widget.TextBox("   "),
@@ -338,35 +302,35 @@ screens = [
                     padding=0,
                     ),
                 widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(
-                    " ",
-                    # background=colors["black"],
-                    foreground=colors["blue"],
-                    fontsize=14,
-                    ),
-                widget.Backlight(
-                    brightness_file="/sys/class/backlight/intel_backlight/brightness",
-                    max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
-                    # background=colors["black"],
-                    foreground=colors["blue"],
-                    ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(
+                #     " ",
+                #     # background=colors["black"],
+                #     foreground=colors["blue"],
+                #     fontsize=14,
+                #     ),
+                # widget.Backlight(
+                #     brightness_file="/sys/class/backlight/intel_backlight/brightness",
+                #     max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
+                #     # background=colors["black"],
+                #     foreground=colors["blue"],
+                #     ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(" "),
                 # widget.TextBox(
                 #     text="|",
                 #     foreground=colors["black"],
@@ -458,60 +422,60 @@ screens = [
                 #     padding=0,
                 #     ),
                 # widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(
-                    " ",
-                    fontsize=17,
-                    # background=colors["black"],
-                    foreground=colors["yellow"],
-                    ),
-                widget.Volume(foreground=colors["yellow"]),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
-                widget.TextBox(
-                    " ",
-                    fontsize=17,
-                    # background=colors["black"],
-                    foreground=colors["aqua"],
-                    ),
-                widget.Battery(
-                    charge_char="",
-                    discharge_char="",
-                    full_char="100",
-                    format="{percent:2.0%}",
-                    # background=colors["black"],
-                    foreground=colors["aqua"],
-                    ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    # background=colors[0],
-                    font="FiraCode Nerd Font",
-                    fontsize=24,
-                    padding=0,
-                    ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=17,
+                #     # background=colors["black"],
+                #     foreground=colors["yellow"],
+                #     ),
+                # widget.Volume(foreground=colors["yellow"]),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=17,
+                #     # background=colors["black"],
+                #     foreground=colors["aqua"],
+                #     ),
+                # widget.Battery(
+                #     charge_char="",
+                #     discharge_char="",
+                #     full_char="100",
+                #     format="{percent:2.0%}",
+                #     # background=colors["black"],
+                #     foreground=colors["aqua"],
+                #     ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     # background=colors[0],
+                #     font="FiraCode Nerd Font",
+                #     fontsize=24,
+                #     padding=0,
+                #     ),
                 # widget.TextBox(
                 #     text="|",
                 #     foreground=colors["black"],
@@ -535,7 +499,8 @@ screens = [
                 widget.TextBox("  "),
             ],
             25,
-            margin=[8,300,0,300],
+            # margin=[8,300,0,300],
+            margin=[8,8,0,8],
             # opacity=1,
             # background="#32302f",
             background="#000000b3",
