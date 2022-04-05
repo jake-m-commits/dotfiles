@@ -4,13 +4,12 @@
 "                                                                      PLUGINS
 " ============================================================================
 
+" Plugins
 call plug#begin()
 Plug 'morhetz/gruvbox'
-Plug 'dracula/vim',{'as':'dracula'}
-Plug 'ayu-theme/ayu-vim'
-Plug 'tomasr/molokai'
-Plug 'sjl/badwolf'
-Plug 'rose-pine/neovim',{'as':'rose-pine'}
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+" Plug 'ayu-theme/ayu-vim'
+" Plug 'rose-pine/neovim',{'as':'rose-pine'}
 Plug 'neoclide/coc.nvim',{'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'kien/rainbow_parentheses.vim'
@@ -22,76 +21,48 @@ Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 Plug 'karb94/neoscroll.nvim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " ============================================================================
 "                                                                      GENERAL
 " ============================================================================
 
-" Highlight current line
+"command W w !sudo tee "%" > /dev/null
 set cursorline
-" Set default shell to zsh for neovim
 " To enter term in split `:sp term://zsh` or `:vsp term://zsh`
 set shell=/usr/bin/zsh
 " Use Escape key to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
-" Setting `nocompatible` switches from the default
-" Vi-compatibility mode and enables useful Vim functionality.
 set nocompatible
-" activate ruler
 set colorcolumn=80
-" activate nowrap
 set nowrap
-" Reduce update time (mostly to asynchronously show git diffs)
 set updatetime=50
-" Turn on syntax highlighting.
 syntax on
-" Disable the default Vim startup message.
-" set shortmess+=I
-" Show line numbers.
 set number
 set relativenumber
-" Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 " use the system clipboard instead of buffer
-" if it doesn't work, install [xclip for x11] or [wl-copy and wl-paste for
-" wayland]
+" if it doesn't work, install [xclip for x11] or [wl-copy and wl-paste for wayland]
 set clipboard=unnamed
 set clipboard=unnamedplus
-" This configuration makes backspace behave more reasonably, in that you can
-" backspace over anything.
 set backspace=indent,eol,start
-" replace tabs with spaces
 set expandtab
-" 1 tab = 2 spaces
-set tabstop=2 shiftwidth=2
-" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
-" shown in any window) that has unsaved changes. This is to prevent you from "
-" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
-" hidden buffers helpful enough to disable this protection. See `:help hidden`
-" for more information on this.
+set tabstop=4 shiftwidth=4
 set hidden
-" Do not save backup files. and swap files
 set nobackup
 set noswapfile
-" alternatively you could save them in a different location:
+" or save backups/swaps in a different location:
 "set backupdir=~/.vim/backup//
 "set directory=~/.vim/swap//
 "set undodir=~/.vim/undo//
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
 set ignorecase
 set smartcase
-" Enable searching as you type, rather than waiting till you press enter.
 set incsearch
-" Enable wildmenu, a little menu that displays files and commands in the buttom left corner
 set wildmenu
 set wildmode=list:longest,full
-" Unbind some useless/annoying default key bindings.
-" 'Q' in normal mode enters Ex mode. You almost never want this.
 nmap Q <Nop>
-" Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
 " ============================================================================
@@ -187,14 +158,16 @@ call SetupCommandAbbrs('CC', 'CocConfig')
 "                                                                       THEMES
 " ============================================================================
 
-" themes and term setting
 set termguicolors
+" AYU
 " let ayucolor="mirage"
 " let ayucolor="dark"
-"·set·colorscheme·(gruvbox,·dracula,·ayu, molokai, badwolf, rose-pine)
-let g:gruvbox_contrast_dark='hard'
+" GRUVBOX
+let g:gruvbox_contrast_dark="hard"
+" let g:gruvbox_contrast_light="soft"
 let g:gruvbox_italic=1
-let g:gruvbox_italicize_strings=1
+" let g:gruvbox_italicize_strings=1
+" set·colorscheme·(gruvbox,·catppuccin)
 colorscheme gruvbox
 
 " ============================================================================
@@ -208,7 +181,7 @@ let g:airline_powerline_fonts = 1
 " ============================================================================
 
 " sets font for neovide
-set guifont=FiraCode\ NF:h11
+" set guifont=FiraCode\ NF:h11
 " set guifont=Dank\ Mono:h8.5
 " set mouse scrolling and compatibility with neovide
 set mouse=a
@@ -276,3 +249,13 @@ let g:SimpylFold_docstring_preview = 1
 lua require('neoscroll').setup()
 " Smooth scrolling for window movement commands (default mappings):
 " <C-u>, <C-d>, <C-b>, <C-f>, <C-y>, <C-e>, zt, zz, zb.
+
+" ============================================================================
+"                                                                          FZF
+" ============================================================================
+
+" requires fzf, bat, the_silver_searcher(ag), ripgrep(rg), [fugitive or delta]
+" CTRL-T / CTRL-X / CTRL-V (new tab / a new split / vertical split)
+nmap <C-P> :FZF<CR>
+" use ag to search for hidden files
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
