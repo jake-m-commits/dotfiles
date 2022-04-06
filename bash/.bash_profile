@@ -11,6 +11,10 @@ export EDITOR="nvim"
 export FLASK_APP="run.py"
 export FLASK_ENV="development"
 # already gets exported in ~/.bashrc
-# export PATH=/home/yeti/.local/bin:/home/yeti/bin:$PATH
+# export PATH=/home/yeti/.cargo/bin:/home/yeti/.local/bin:/home/yeti/bin:$PATH
 export BAT_THEME='gruvbox-dark'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_OPTS='--border'
+
+# rust env
+. "$HOME/.cargo/env"

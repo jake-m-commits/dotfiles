@@ -6,9 +6,9 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+if ! [[ "$PATH" =~ "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
@@ -117,3 +117,9 @@ source "$BASH_IT"/bash_it.sh
 # neofetch
 # pfetch
 colorscript random
+
+# append to /etc/inputrc for case insensitive tab completions
+# set completion-ignore-case on
+
+# rust env
+. "$HOME/.cargo/env"

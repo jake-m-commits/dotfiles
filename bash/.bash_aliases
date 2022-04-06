@@ -3,11 +3,16 @@
 
 # Editing
 alias rm='rm -i'
-alias cp='cp -v'
-alias mv='mv -v'
+alias cp='cp -vi'
+alias mv='mv -vi'
 alias e='nvim'
-alias fe='nvim -p $(fzf -m)'
+
+# Fuzzy Stuff
 alias cdf='cd $(find . -type d -print | fzf)'
+alias fe='nvim -p $(fzf -m)'
+alias hfzf='rg --files --hidden -g "!.git" | fzf'
+alias hfe='nvim -p $(hfzf -m)'
+alias pfzf='hfzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
 
 # Package Management (DNF)
 alias up='sudo dnf upgrade'
@@ -15,6 +20,9 @@ alias add='sudo dnf install'
 alias rem='sudo dnf remove'
 # alias clean='sudo dnf autoremove'
 alias sr='dnf search'
+
+# ssh
+alias sshgh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
 # Navigation
 alias ls='lsd -l'
