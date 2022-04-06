@@ -12,7 +12,7 @@ alias cdf='cd $(find . -type d -print | fzf)'
 alias fe='nvim -p $(fzf -m)'
 alias hfzf='rg --files --hidden -g "!.git" | fzf'
 alias hfe='nvim -p $(hfzf -m)'
-alias pfzf='hfzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
+alias pfzf='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
 
 # Package Management (DNF)
 alias up='sudo dnf upgrade'
