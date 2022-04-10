@@ -43,3 +43,21 @@ extract ()
         echo "'$1' is not a valid file";
     fi
 }
+
+venv ()
+{
+    if [[ -n ${VIRTUAL_ENV} ]]; then
+        deactivate
+        return
+    fi
+    if [[ -d venv ]]; then
+        . venv/bin/activate
+        return
+    fi
+    if [[ $1 == --py2 ]]; then
+        python2 -m virtualenv venv
+    else
+        python3 -m venv venv
+    fi
+    [[ $? == 0 ]] && venv
+}
