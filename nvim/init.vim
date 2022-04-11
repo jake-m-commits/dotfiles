@@ -3,12 +3,11 @@
 " ============================================================================
 "                                                                      PLUGINS
 " ============================================================================
-
-" Plugins
 call plug#begin()
 Plug 'morhetz/gruvbox'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-" Plug 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'Yggdroot/indentLine'
 " Plug 'rose-pine/neovim',{'as':'rose-pine'}
 Plug 'neoclide/coc.nvim',{'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
@@ -24,6 +23,27 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
+" ============================================================================
+"                                                                       THEMES
+" ============================================================================
+
+set termguicolors
+""" AYU
+let ayucolor="mirage"
+let ayucolor="dark"
+" IndentLine {{
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" let g:indentLine_char = ''
+" let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
+" }}
+""" GRUVBOX
+" let g:gruvbox_contrast_dark="hard"
+" let g:gruvbox_contrast_light="soft"
+" let g:gruvbox_italic=1
+" set·colorscheme·(gruvbox,·catppuccin, ayu)
+colorscheme ayu
 
 " ============================================================================
 "                                                                      GENERAL
@@ -32,7 +52,7 @@ call plug#end()
 "command W w !sudo tee "%" > /dev/null
 set cursorline
 " To enter term in split `:sp term://zsh` or `:vsp term://zsh`
-set shell=/usr/bin/zsh
+set shell=/usr/bin/bash
 " Use Escape key to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
 set nocompatible
@@ -155,22 +175,6 @@ endfunction
 call SetupCommandAbbrs('CC', 'CocConfig')
 
 " ============================================================================
-"                                                                       THEMES
-" ============================================================================
-
-set termguicolors
-" AYU
-" let ayucolor="mirage"
-" let ayucolor="dark"
-" GRUVBOX
-let g:gruvbox_contrast_dark="hard"
-" let g:gruvbox_contrast_light="soft"
-let g:gruvbox_italic=1
-" let g:gruvbox_italicize_strings=1
-" set·colorscheme·(gruvbox,·catppuccin)
-colorscheme gruvbox
-
-" ============================================================================
 "                                                                      AIRLINE
 " ============================================================================
 
@@ -258,4 +262,4 @@ lua require('neoscroll').setup()
 " CTRL-T / CTRL-X / CTRL-V (new tab / a new split / vertical split)
 nmap <C-P> :FZF<CR>
 " use ag to search for hidden files
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!.git"'
