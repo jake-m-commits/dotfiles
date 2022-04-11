@@ -6,13 +6,14 @@ alias rm='rm -i'
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias e='nvim'
+alias py='python3'
 
 # Fuzzy Stuff
 alias cdf='cd $(find . -type d -print | fzf)'
-alias fe='nvim -p $(fzf -m)'
-alias hfzf='rg --files --hidden -g "!.git" | fzf'
-alias hfe='nvim -p $(hfzf -m)'
 alias pfzf='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
+alias fe='nvim -p $(pfzf -m)'
+alias hfzf='rg --files --hidden -g "!.git" | pfzf'
+alias hfe='nvim -p $(hfzf -m)'
 
 # Package Management (DNF)
 alias up='sudo dnf upgrade'
@@ -25,8 +26,9 @@ alias sr='dnf search'
 alias sshgh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
 # Navigation
-alias ls='lsd -l'
-alias lt='ls --tree'
+alias ls='exa -1Flghm --icons --octal-permissions --git'
+alias lsa='exa -1Flghma --icons --octal-permissions'
+alias lt='exa -T --icons'
 
 # Weather
 alias we='/home/yeti/Documents/weather/wttr'

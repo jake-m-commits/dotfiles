@@ -25,11 +25,6 @@ export PATH
 # fi
 # unset rc
 
-# Aliases
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
-
 # If not running interactively, don't do anything
 case $- in
   *i*) ;;
@@ -42,7 +37,10 @@ export BASH_IT="/home/yeti/.bash_it"
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
 # location /.bash_it/themes/
-export BASH_IT_THEME='easy'
+export BASH_IT_THEME='barbuk'
+# previously used themes:
+#   easy
+#   barbuk
 
 # Some themes can show whether `sudo` has a current token or not.
 # Set `$THEME_CHECK_SUDO` to `true` to check every prompt:
@@ -112,6 +110,76 @@ export SCM_CHECK=true
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
+
+# Aliases
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
+
+# Functions
+extract ()
+{
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2)
+                tar xjf "$1"
+            ;;
+            *.tar.gz)
+                tar xzf "$1"
+            ;;
+            *.bz2)
+                bunzip2 "$1"
+            ;;
+            *.rar)
+                unrar e "$1"
+            ;;
+            *.gz)
+                gunzip "$1"
+            ;;
+            *.tar)
+                tar xf "$1"
+            ;;
+            *.tbz2)
+                tar xjf "$1"
+            ;;
+            *.tgz)
+                tar xzf "$1"
+            ;;
+            *.zip)
+                unzip "$1"
+            ;;
+            *.Z)
+                uncompress "$1"
+            ;;
+            *.7z)
+                7z x "$1"
+            ;;
+            *)
+                echo "'$1' cannot be extracted via extract()"
+            ;;
+        esac;
+    else
+        echo "'$1' is not a valid file";
+    fi
+}
+
+venv ()
+{
+    if [[ -n ${VIRTUAL_ENV} ]]; then
+        deactivate
+        return
+    fi
+    if [[ -d venv ]]; then
+        . venv/bin/activate
+        return
+    fi
+    if [[ $1 == --py2 ]]; then
+        python2 -m virtualenv venv
+    else
+        python3 -m venv venv
+    fi
+    [[ $? == 0 ]] && venv
+}
 
 ### Other ###
 # neofetch
