@@ -2,10 +2,13 @@ modkey = "Mod4"
 mousekey = "Mod4"
 workspaces = []
 tags = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-layouts = ["MainAndVertStack", "MainAndHorizontalStack", "MainAndDeck", "GridHorizontal", "EvenHorizontal", "EvenVertical", "Fibonacci", "CenterMain", "CenterMainBalanced", "Monocle", "RightWiderLeftStack", "LeftWiderRightStack"]
+layouts = ["MainAndVertStack", "MainAndHorizontalStack", "MainAndDeck", "GridHorizontal", "EvenHorizontal", "EvenVertical", "Fibonacci", "LeftMain", "CenterMain", "CenterMainBalanced", "CenterMainFluid", "Monocle", "RightWiderLeftStack", "LeftWiderRightStack"]
 layout_mode = "Workspace"
+insert_behavior = "Bottom"
 scratchpad = []
+window_rules = []
 disable_current_tag_swap = false
+disable_tile_drag = false
 focus_behaviour = "Sloppy"
 focus_new_windows = true
 
@@ -17,23 +20,19 @@ key = "p"
 
 [[keybind]]
 command = "Execute"
-value = "rofi -modi drun,run -show drun -show-icons -font 'FiraCode Nerd Font 12'"
-modifier = ["modkey"]
-key = "d"
-
-[[keybind]]
-command = "Execute"
 value = "kitty"
 modifier = ["modkey", "Shift"]
 key = "Return"
 
 [[keybind]]
 command = "CloseWindow"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "q"
 
 [[keybind]]
 command = "SoftReload"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "r"
 
@@ -51,96 +50,115 @@ key = "l"
 
 [[keybind]]
 command = "MoveToLastWorkspace"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "w"
 
 [[keybind]]
 command = "SwapTags"
+value = ""
 modifier = ["modkey"]
 key = "w"
 
 [[keybind]]
 command = "MoveWindowUp"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "k"
 
 [[keybind]]
 command = "MoveWindowDown"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "j"
 
 [[keybind]]
 command = "MoveWindowTop"
+value = ""
 modifier = ["modkey"]
 key = "Return"
 
 [[keybind]]
 command = "FocusWindowUp"
+value = ""
 modifier = ["modkey"]
 key = "k"
 
 [[keybind]]
 command = "FocusWindowDown"
+value = ""
 modifier = ["modkey"]
 key = "j"
 
 [[keybind]]
 command = "NextLayout"
+value = ""
 modifier = ["modkey", "Control"]
 key = "k"
 
 [[keybind]]
 command = "PreviousLayout"
+value = ""
 modifier = ["modkey", "Control"]
 key = "j"
 
 [[keybind]]
 command = "FocusWorkspaceNext"
+value = ""
 modifier = ["modkey"]
 key = "l"
 
 [[keybind]]
 command = "FocusWorkspacePrevious"
+value = ""
 modifier = ["modkey"]
 key = "h"
 
 [[keybind]]
 command = "MoveWindowUp"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "Up"
 
 [[keybind]]
 command = "MoveWindowDown"
+value = ""
 modifier = ["modkey", "Shift"]
 key = "Down"
 
 [[keybind]]
 command = "FocusWindowUp"
+value = ""
 modifier = ["modkey"]
 key = "Up"
 
 [[keybind]]
 command = "FocusWindowDown"
+value = ""
 modifier = ["modkey"]
 key = "Down"
 
 [[keybind]]
 command = "NextLayout"
+value = ""
 modifier = ["modkey", "Control"]
 key = "Up"
 
 [[keybind]]
 command = "PreviousLayout"
+value = ""
 modifier = ["modkey", "Control"]
 key = "Down"
 
 [[keybind]]
 command = "FocusWorkspaceNext"
+value = ""
 modifier = ["modkey"]
 key = "Right"
 
 [[keybind]]
 command = "FocusWorkspacePrevious"
+value = ""
 modifier = ["modkey"]
 key = "Left"
 
