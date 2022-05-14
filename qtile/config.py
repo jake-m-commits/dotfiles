@@ -6,12 +6,13 @@ from libqtile.lazy import lazy
 from subprocess import call as subcall
 
 mod = "mod4"
-local = "Surrey"
-terminal = "alacritty"
+local = "Surrey, Canada"
+terminal = "kitty"
+terminal_alt = 'alacritty'
 home_dir = os.path.expanduser("~")
 # x11 launcher
-# launcher = "rofi -modi drun,run -show drun -show-icons -font 'FiraCode Nerd Font 12'"
 launcher = 'dmenu_run'
+# launcher = "rofi -modi drun,run -show drun -show-icons -font 'FiraCode Nerd Font 12'"
 # wayland launcher
 # launcher = "wofi -Gbif -S drun,run -p '\[^-^]/'"
 
@@ -20,122 +21,122 @@ keys = [
         [mod], "h",
         lazy.layout.left(),
         desc="Move focus to left"
-        ),
+    ),
     Key(
         [mod], "l",
         lazy.layout.right(),
         desc="Move focus to right"
-        ),
+    ),
     Key(
         [mod], "j",
         lazy.layout.down(),
         desc="Move focus down"
-        ),
+    ),
     Key(
         [mod], "k",
         lazy.layout.up(),
         desc="Move focus up"
-        ),
+    ),
     Key(
         [mod], "space",
         lazy.layout.next(),
         desc="Move window focus to other window"
-        ),
+    ),
     Key(
         [mod, "shift"], "h",
         lazy.layout.shuffle_left(),
         desc="Move window to the left"
-        ),
+    ),
     Key(
         [mod, "shift"], "l",
         lazy.layout.shuffle_right(),
         desc="Move window to the right",
-        ),
+    ),
     Key(
         [mod, "shift"], "j",
         lazy.layout.shuffle_down(),
         desc="Move window down"
-        ),
+    ),
     Key(
         [mod, "shift"], "k",
         lazy.layout.shuffle_up(),
         desc="Move window up"
-        ),
+    ),
     Key(
         [mod, "control"], "h",
         lazy.layout.grow_left(),
         desc="Grow window to the left"
-        ),
+    ),
     Key(
         [mod, "control"], "l",
         lazy.layout.grow_right(),
         desc="Grow window to the right"
-        ),
+    ),
     Key(
         [mod, "control"], "j",
         lazy.layout.grow_down(),
         desc="Grow window down"
-        ),
+    ),
     Key(
         [mod, "control"], "k",
         lazy.layout.grow_up(),
         desc="Grow window up"
-        ),
+    ),
     Key(
         [mod], "n",
         lazy.layout.normalize(),
         desc="Reset all window sizes"
-        ),
+    ),
     Key(
         [mod, "shift"], "Return",
-        lazy.spawn("alacritty"),
-        desc="Launch alacritty",
-        ),
+        lazy.spawn(terminal_alt),
+        desc="Launch alternate terminal",
+    ),
     Key(
         [mod], "Return",
         lazy.spawn(terminal),
-        desc="Launch kitty"
-        ),
+        desc="Launch terminal"
+    ),
     Key(
         [mod], "Tab",
         lazy.next_layout(),
         desc="Toggle between layouts"
-        ),
+    ),
     Key(
         [mod], "w",
         lazy.window.kill(),
         desc="Kill focused window"
-        ),
+    ),
     Key(
         [mod, "control"], "r",
         lazy.restart(),
         desc="Restart Qtile"
-        ),
+    ),
     Key(
         [mod, "control"], "q",
         lazy.shutdown(),
         desc="Shutdown Qtile"
-        ),
+    ),
     Key(
         [mod], "p",
         lazy.spawn(launcher),
         desc="Run launcher"
-        ),
-    Key(
-        [mod, "shift"], "s",
-        lazy.spawn(f"import -silent {home_dir}/Pictures/cropped.png"),
-        desc="Cropped Screenshot",
-        ),
-    Key(
-        [mod], "s",
-        lazy.spawn(f"import -silent -window root {home_dir}/Pictures/full.png"),
-        desc="Full screenshot",
-        ),
-    Key(
-        [mod], "t",
-        lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/walls/"),
-        desc="Change wallpaper",
-        ),
+    ),
+    # Key(
+    #     [mod, "shift"], "s",
+    #     lazy.spawn(f"import -silent {home_dir}/Pictures/cropped.png"),
+    #     desc="Cropped Screenshot",
+    #     ),
+    # Key(
+    #     [mod], "s",
+    #     lazy.spawn(f"import -silent -window root {home_dir}/Pictures/full.png"),
+    #     desc="Full screenshot",
+    #     ),
+    # Key(
+    #     [mod], "t",
+    #     lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/walls/"),
+    #     desc="Change wallpaper",
+    #     ),
 ]
 
 groups = [
@@ -157,45 +158,46 @@ for i in groups:
                 [mod], i.name,
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
-                ),
+            ),
             Key(
                 [mod, "shift"], i.name,
                 lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-                ),
+                desc="Switch to & move focused window to group {}".format(
+                    i.name),
+            ),
             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
             #     desc="move focused window to group {}".format(i.name)
             # ),
         ]
     )
 
+# catppuccin
+colors = dict(
+    red="#F28FAD",
+    blue="#96CDFB",
+    green="#ABE9B3",
+    yellow="#FAE3B0",
+    aqua="#B5E8E0",
+    muave='#DDB6F2',
+    white="#D9E0EE",
+    black="#161320",
+    back='#1E1E2E',
+)
+
 layouts = [
     layout.Columns(
         margin=5,
         border_width=1,
         border_on_single=True,
-        border_focus="#98971a",
+        border_focus=colors['green'],
         border_normal="#000000"
-        ),
-    layout.TreeTab(
-        # font="FiraCode Nerd Font",
-        fontsize=12,
-        active_fg="#d79921",
-        active_bg="#504945",
-        inactive_fg="#a49882",
-        inactive_bg="00000000",
-        bg_color="#000000b3",
-        sections=["Main"],
-        section_top=10,
-        section_fg="#a49882",
-        section_fontsize=14,
-        panel_width=200
-        ),
-    # layout.Bsp(
-    #     margin=5,
-    #     border_width=3,
-    #     border_focus='#98971a'
-    #     ),
+    ),
+    layout.Bsp(
+        margin=5,
+        border_width=3,
+        border_focus=colors['green'],
+    ),
+    # layout.TreeTab(),
     # layout.Zoomy(),
     # layout.Max(),
     # layout.Stack(num_stacks=2),
@@ -207,21 +209,10 @@ layouts = [
     # layout.VerticalTile(margin=5),
 ]
 
-colors = dict(
-    red="#cc241d",
-    blue="#458588",
-    green="#98971a",
-    yellow="#d79921",
-    aqua="#689d6a",
-    white="#ebdbb2",
-    black="#1d2021",
-)
-
 widget_defaults = dict(
-    # font="FiraCode Nerd Font",
     font="mononoki NF",
     fontsize=12,
-    foreground="#d4be98",
+    foreground=colors['white'],
     padding=0,
 )
 extension_defaults = widget_defaults.copy()
@@ -236,211 +227,185 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                # left widgets
                 widget.TextBox("   "),
                 widget.TextBox(
                     " ",
-                    # " ",
-                    foreground=colors["blue"],
-                    fontsize=18,
-                    # background=colors["black"],
-                    ),
+                    foreground=colors["white"],
+                    fontsize=30,
+                ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.GroupBox(
                     # block_highlight_text_color=colors["black"],
                     this_current_screen_border=colors["aqua"],
                     inactive=colors['black'],
-                    active=colors["blue"],
+                    active=colors["muave"],
                     highlight_method="text",
-                    highlight_color=colors["aqua"],
+                    highlight_color=colors["green"],
                     urgent_alert_method="text",
                     urgent_text=colors["yellow"],
-                    fontsize=14,
+                    fontsize=16,
                     spacing=10,
-                    ),
+                ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
-
+                ),
                 widget.TextBox(" "),
                 widget.WindowName(format="{name}"),
                 widget.Spacer(),
+
+                # center widgets
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
-                widget.TextBox("   ",fontsize=16),
-                widget.Clock(format="%a %d ~ %H:%M ", fontsize=18),
+                ),
+                widget.TextBox("   ", fontsize=28),
+                widget.Clock(format="%a %d ~ %H:%M ", fontsize=16),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.Spacer(),
+
+                # right widgets
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.Systray(),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
-
+                ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(
                     " ",
-                    fontsize=18,
-                    # background=colors["black"],
+                    fontsize=24,
                     foreground=colors["red"],
-                    ),
+                ),
                 widget.CPU(
                     format="{load_percent}%",
-                    # background=colors["black"],
                     foreground=colors["red"],
                     update_interval=2,
-                    ),
+                ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(
                     " ",
-                    fontsize=18,
-                    # background=colors["black"],
+                    fontsize=16,
                     foreground=colors["white"],
-                    ),
+                ),
                 widget.ThermalSensor(
-                    # background=colors["black"],
                     foreground=colors["white"],
                     foreground_alert=colors["red"],
                     tag_sensor="Package id 0",
                     show_tag=False,
                     metric=True,
                     update_interval=2,
-                    ),
+                ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(
                     " ",
-                    fontsize=16,
-                    # background=colors["black"],
+                    fontsize=24,
                     foreground=colors["green"],
-                    ),
+                ),
                 widget.Memory(
                     format="{MemUsed: .0f} MB",
-                    # background=colors["black"],
                     foreground=colors["green"],
-                    ),
+                ),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(
                     " ",
-                    fontsize=18,
-                    # background=colors["black"],
+                    fontsize=28,
                     foreground=colors["yellow"],
-                    ),
+                ),
                 widget.Volume(foreground=colors["yellow"]),
                 widget.TextBox(
                     text="|",
                     foreground=colors["black"],
-                    # background=colors[0],
-                    fontsize=24,
+                    fontsize=32,
                     padding=0,
-                    ),
+                ),
                 widget.TextBox(" "),
-                # widget.TextBox(
-                #     text="|",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                #     ),
-                # widget.Wttr(
-                #     location={local: local},
-                #     font="FiraCode Nerd Font",
-                #     ),
-                # widget.TextBox(
-                #     text="|",
-                #     foreground=colors["black"],
-                #     # background=colors[0],
-                #     font="FiraCode Nerd Font",
-                #     fontsize=24,
-                #     padding=0,
-                #     ),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    fontsize=32,
+                    padding=0,
+                ),
+                widget.Wttr(location={local: local}),
+                widget.TextBox(
+                    text="|",
+                    foreground=colors["black"],
+                    fontsize=32,
+                    padding=0,
+                ),
                 widget.TextBox("  "),
             ],
             25,
             # margin=[8,300,0,300],
             # margin=[8,8,0,8],
-            # opacity=1,
+            margin=[-2, 0, 0, 0],
             # background="#000000b3",
-            background="#000000",
+            # background="#000000",
+            background=colors['back'],
         ),
         bottom=bar.Gap(3),
         left=bar.Gap(3),
