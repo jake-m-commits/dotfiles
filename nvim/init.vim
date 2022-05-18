@@ -29,30 +29,27 @@ call plug#end()
 
 set termguicolors
 """ AYU
-let ayucolor="mirage"
-let ayucolor="dark"
-" IndentLine {{
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-" let g:indentLine_char = ''
-" let g:indentLine_first_char = ''
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 0
-" }}
+" let ayucolor="mirage"
+" let ayucolor="dark"
 """ GRUVBOX
-" let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_dark="hard"
 " let g:gruvbox_contrast_light="soft"
 " let g:gruvbox_italic=1
+""" IndentLine {{
+let g:indentLine_char = '┆'
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
 " set·colorscheme·(gruvbox,·catppuccin, ayu)
-colorscheme ayu
+colorscheme gruvbox
 
 " ============================================================================
 "                                                                      GENERAL
 " ============================================================================
 
-"command W w !sudo tee "%" > /dev/null
 set cursorline
 " To enter term in split `:sp term://zsh` or `:vsp term://zsh`
-set shell=/usr/bin/bash
+" set shell=/usr/bin/bash
 " Use Escape key to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
 set nocompatible
