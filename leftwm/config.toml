@@ -45,6 +45,12 @@ key = "p"
 
 [[keybind]]
 command = "Execute"
+value = "rofi -modi drun,run -show drun -show-icons"
+modifier = ["modkey"]
+key = "r"
+
+[[keybind]]
+command = "Execute"
 value = "alacritty"
 modifier = ["modkey", "Shift"]
 key = "Return"
