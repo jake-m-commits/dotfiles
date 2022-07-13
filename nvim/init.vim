@@ -7,14 +7,12 @@ call plug#begin()
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'morhetz/gruvbox'
-Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-Plug 'ayu-theme/ayu-vim'
 Plug 'Yggdroot/indentLine'
-Plug 'neoclide/coc.nvim',{'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tmhedberg/SimpylFold'
+Plug 'neoclide/coc.nvim',{'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
@@ -28,10 +26,6 @@ call plug#end()
 " ============================================================================
 
 set termguicolors
-set guifont=mononoki\ NF:h15
-""" AYU
-" let ayucolor="mirage"
-" let ayucolor="dark"
 """ GRUVBOX
 let g:gruvbox_contrast_dark="hard"
 " let g:gruvbox_contrast_light="soft"
@@ -41,7 +35,6 @@ let g:indentLine_char = '┆'
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-" set·colorscheme·(gruvbox,·catppuccin, ayu)
 colorscheme gruvbox
 
 " ============================================================================
@@ -49,7 +42,7 @@ colorscheme gruvbox
 " ============================================================================
 
 set cursorline
-" To enter term in split `:sp term://zsh` or `:vsp term://zsh`
+" To enter term in split `:vsp term://bash` or `:vsp term://bash`
 " set shell=/usr/bin/bash
 " Use Escape key to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -173,22 +166,15 @@ endfunction
 call SetupCommandAbbrs('CC', 'CocConfig')
 
 " ============================================================================
-"                                                                      AIRLINE
-" ============================================================================
-
-" let g:airline_powerline_fonts = 1
-
-" ============================================================================
 "                                                                      NEOVIDE
 " ============================================================================
 
 " sets font for neovide
-" set guifont=FiraCode\ NF:h11
-" set guifont=Dank\ Mono:h8.5
+set guifont=mononoki\ NF:h15
 " set mouse scrolling and compatibility with neovide
 set mouse=a
 "sets certain visual effects for cursor
-"let g:neovide_cursor_vfx_mode = "pixiedust
+let g:neovide_cursor_vfx_mode = "pixiedust"
 
 " ============================================================================
 "                                                             RAINBOW BRACKETS
@@ -256,7 +242,7 @@ lua require('neoscroll').setup()
 "                                                                          FZF
 " ============================================================================
 
-" requires fzf, bat, the_silver_searcher(ag), ripgrep(rg), [fugitive or delta]
+" requires fzf, bat and either the_silver_searcher(ag) or ripgrep(rg)
 " CTRL-T / CTRL-X / CTRL-V (new tab / a new split / vertical split)
 nmap <C-P> :FZF<CR>
 " use ag to search for hidden files

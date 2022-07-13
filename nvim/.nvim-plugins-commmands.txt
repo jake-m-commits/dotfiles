@@ -3,8 +3,7 @@ Install plugins
 nvim
 :PlugInstall
 :UpdateRemotePlugins
-:q!
-:q!
+:qa!
 
 Remove plugins
 " after removing plugs from ~/.config/nvim/init.vim
