@@ -1,0 +1,44 @@
+### Aliases ###
+
+
+# Editing
+alias rm='rm -i'
+alias cp='cp -vi'
+alias mv='mv -vi'
+alias e='nvim'
+alias nv='neovide --multigrid'
+alias py='python3'
+
+# Fuzzy Stuff (ripgrep, fuzzyfind, git, neovim)
+alias cdf='cd $(find . -type d -print | fzf)'
+alias pfzf='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
+alias fe='nvim -p $(pfzf -m)'
+alias hfzf='rg --files --hidden -g "!.git" | pfzf'
+alias hfe='nvim -p $(hfzf -m)'
+
+# Package Management (XBPS)
+alias up='sudo xbps-install -Su'
+# alias up='doas xbps-install -Su'
+alias add='sudo xbps-install -S'
+# alias add='doas xbps-install -S'
+alias rem='sudo xbps-remove -R'
+# alias rem='doas xbps-remove -R'
+alias clean='sudo xbps-remove -Oo'
+# alias clean='doas xbps-remove -Oo'
+alias sr='xbps-query -Rs'
+alias sr='xbps-query -Rs'
+
+# ssh
+alias sshgh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
+
+# Navigation
+alias l='exa -1Flghm --icons --octal-permissions --git'
+alias la='exa -1Flghma --icons --octal-permissions'
+alias lt='exa -T --icons'
+
+# Extra
+alias x='exit'
+alias we='/home/yeti/Documents/weather/wttr'
+alias add-mus='youtube-dl -x --audio-format mp3'
+alias neo='neofetch --ascii /home/yeti/Documents/yeti-repos/dotfiles/ascii/nerv'
+alias scrn='xset s off && xset -dpms && xset s noblank'
