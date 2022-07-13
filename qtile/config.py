@@ -103,6 +103,11 @@ keys = [
         desc="Toggle between layouts"
     ),
     Key(
+        [mod], "f",
+        lazy.window.toggle_floating(),
+        desc="Toggle floating"
+    ),
+    Key(
         [mod], "w",
         lazy.window.kill(),
         desc="Kill focused window"
@@ -218,12 +223,6 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
-    Screen(
-        top=bar.Gap(3),
-        bottom=bar.Gap(3),
-        left=bar.Gap(3),
-        right=bar.Gap(3),
-    ),
     Screen(
         top=bar.Bar(
             [

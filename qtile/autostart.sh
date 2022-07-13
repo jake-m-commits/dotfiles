@@ -6,7 +6,7 @@
 
 #set background
 if [ -x "$(command -v feh)" ]; then
-  feh --bg-scale ~/Pictures/walls/ultra-wide/0011.jpg
+  feh --bg-scale ~/Pictures/walls/ultra-wide/0021.png
 fi
 
 # start compositor

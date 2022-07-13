@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Qtile (Wayland)
+Comment=Qtile Session
+Exec=/home/yeti/.local/bin/qtile start -b wayland
+Type=Application
+Keywords=wm;tiling
