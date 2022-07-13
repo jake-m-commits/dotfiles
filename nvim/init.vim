@@ -4,15 +4,15 @@
 "                                                                      PLUGINS
 " ============================================================================
 call plug#begin()
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'morhetz/gruvbox'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'ayu-theme/ayu-vim'
 Plug 'Yggdroot/indentLine'
-" Plug 'rose-pine/neovim',{'as':'rose-pine'}
 Plug 'neoclide/coc.nvim',{'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'vim-airline/vim-airline'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tmhedberg/SimpylFold'
 Plug 'tpope/vim-fugitive'
@@ -28,6 +28,7 @@ call plug#end()
 " ============================================================================
 
 set termguicolors
+set guifont=mononoki\ NF:h15
 """ AYU
 " let ayucolor="mirage"
 " let ayucolor="dark"
@@ -175,7 +176,7 @@ call SetupCommandAbbrs('CC', 'CocConfig')
 "                                                                      AIRLINE
 " ============================================================================
 
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 
 " ============================================================================
 "                                                                      NEOVIDE
@@ -260,3 +261,13 @@ lua require('neoscroll').setup()
 nmap <C-P> :FZF<CR>
 " use ag to search for hidden files
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!.git"'
+
+" ============================================================================
+"                                                                      LUALINE
+" ============================================================================
+
+lua << END
+require('lualine').setup {
+    options = { section_separators = '', component_separators = '' },
+    }
+END
