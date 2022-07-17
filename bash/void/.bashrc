@@ -33,5 +33,6 @@ fi
 
 ### Other ###
 # neofetch
-colorscript random
-pfetch
+colorscript -r
+# pfetch
+# cpipes
