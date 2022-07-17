@@ -6,14 +6,14 @@ from libqtile.lazy import lazy
 from subprocess import call as subcall
 
 mod = "mod4"
-local = "Surrey, Canada"
+local = "Vancouver, Canada"
 terminal = "kitty"
 terminal_alt = 'alacritty'
 home_dir = os.path.expanduser("~")
-# x11 launcher
-launcher = 'dmenu_run'
-# launcher = "rofi -modi drun,run -show drun -show-icons -font 'FiraCode Nerd Font 12'"
-# wayland launcher
+## x11 launchers
+# launcher = 'dmenu_run'
+launcher = "rofi -modi drun,run -show drun -show-icons -font 'mononoki NF 12'"
+## wayland launcher
 # launcher = "wofi -Gbif -S drun,run -p '\[^-^]/'"
 
 keys = [
@@ -128,19 +128,19 @@ keys = [
         desc="Run launcher"
     ),
     # Key(
-    #     [mod, "shift"], "s",
-    #     lazy.spawn(f"import -silent {home_dir}/Pictures/cropped.png"),
-    #     desc="Cropped Screenshot",
+    #     [], "XF86AudioRaiseVolume",
+    #     lazy.spawn("amixer sset Master 5%+"),
+    #     desc="Raise volume"
     #     ),
     # Key(
-    #     [mod], "s",
-    #     lazy.spawn(f"import -silent -window root {home_dir}/Pictures/full.png"),
-    #     desc="Full screenshot",
+    #     [], "XF86AudioLowerVolume",
+    #     lazy.spawn("amixer sset Master 5%-"),
+    #     desc="Lower volume"
     #     ),
     # Key(
-    #     [mod], "t",
-    #     lazy.spawn(f"nitrogen --random --set-scaled {home_dir}/Pictures/walls/"),
-    #     desc="Change wallpaper",
+    #     [], "XF86AudioMute",
+    #     lazy.spawn("amixer sset Master toggle"),
+    #     desc="Mute volume"
     #     ),
 ]
 
@@ -293,76 +293,76 @@ screens = [
                     padding=0,
                 ),
                 widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    fontsize=32,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    " ",
-                    fontsize=24,
-                    foreground=colors["red"],
-                ),
-                widget.CPU(
-                    format="{load_percent}%",
-                    foreground=colors["red"],
-                    update_interval=2,
-                ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    fontsize=32,
-                    padding=0,
-                ),
-                widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    fontsize=32,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    " ",
-                    fontsize=16,
-                    foreground=colors["white"],
-                ),
-                widget.ThermalSensor(
-                    foreground=colors["white"],
-                    foreground_alert=colors["red"],
-                    tag_sensor="Package id 0",
-                    show_tag=False,
-                    metric=True,
-                    update_interval=2,
-                ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    fontsize=32,
-                    padding=0,
-                ),
-                widget.TextBox(" "),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    fontsize=32,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    " ",
-                    fontsize=24,
-                    foreground=colors["green"],
-                ),
-                widget.Memory(
-                    format="{MemUsed: .0f} MB",
-                    foreground=colors["green"],
-                ),
-                widget.TextBox(
-                    text="|",
-                    foreground=colors["black"],
-                    fontsize=32,
-                    padding=0,
-                ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     fontsize=32,
+                #     padding=0,
+                # ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=24,
+                #     foreground=colors["red"],
+                # ),
+                # widget.CPU(
+                #     format="{load_percent}%",
+                #     foreground=colors["red"],
+                #     update_interval=2,
+                # ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     fontsize=32,
+                #     padding=0,
+                # ),
+                # widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     fontsize=32,
+                #     padding=0,
+                # ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=16,
+                #     foreground=colors["white"],
+                # ),
+                # widget.ThermalSensor(
+                #     foreground=colors["white"],
+                #     foreground_alert=colors["red"],
+                #     tag_sensor="Package id 0",
+                #     show_tag=False,
+                #     metric=True,
+                #     update_interval=2,
+                # ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     fontsize=32,
+                #     padding=0,
+                # ),
+                # widget.TextBox(" "),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     fontsize=32,
+                #     padding=0,
+                # ),
+                # widget.TextBox(
+                #     " ",
+                #     fontsize=24,
+                #     foreground=colors["green"],
+                # ),
+                # widget.Memory(
+                #     format="{MemUsed: .0f} MB",
+                #     foreground=colors["green"],
+                # ),
+                # widget.TextBox(
+                #     text="|",
+                #     foreground=colors["black"],
+                #     fontsize=32,
+                #     padding=0,
+                # ),
                 widget.TextBox(" "),
                 widget.TextBox(
                     text="|",
@@ -401,7 +401,7 @@ screens = [
             25,
             # margin=[8,300,0,300],
             # margin=[8,8,0,8],
-            margin=[-2, 0, 0, 0],
+            margin=[0, 0, 0, 0],
             # background="#000000b3",
             # background="#000000",
             background=colors['back'],
@@ -469,4 +469,4 @@ def afterstart():
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "Qtile"
